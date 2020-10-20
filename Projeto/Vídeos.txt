@@ -1,0 +1,15 @@
+Detalhes:
+- Máximo 10 minutos.
+- Todos devem apresentar.
+- Espera-se uma apresentação não apenas do funcionamento do sistema, mas da estrutura interna do que foi desenvolvido naquela parcial.
+- Foco deve ser no conteúdo da parcial que está sendo entregue (não é necessário reexplicar o que já foi apresentado em vídeos anteriores).
+- O vídeo deve ser hospedado em algum serviço gratuito (ex.: YouTube) e o link fornecido junto com a entrega.
+
+Parte 1:
+Link:
+
+Parte 2:
+Link:
+
+Parte 3:
+Link:
