@@ -1,6 +1,7 @@
 
 .box {  
 
+        margin: 100px auto;
         padding: 10px; 
 	    display: block;
 	    width: 200px;
@@ -15,9 +16,6 @@
 .background{
   
   display: block;
-  padding-right: 37%;
-  padding-left:  37%;
-  padding-top: 10%;
   background-image: url(../../static/Background_Login.jpg);
   background-size: cover;
   background-repeat:  no-repeat;
