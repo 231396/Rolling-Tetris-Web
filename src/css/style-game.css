@@ -1,0 +1,106 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body{
+    background-color: wheat;
+}
+
+.grid-center{
+    margin: 0 auto;
+}
+
+.center-text {
+	text-align: center;
+}
+
+#grid-layout {
+	display: grid;
+	width: auto;
+	height: 100vh;
+	grid-template:
+		"leftHeader centerHeader rightHeader" 15%
+		"leftContent centerContent rightContent" 80% / 20% 55% 20%;
+	gap: 1vw;
+    justify-items: center;
+    align-items: center;
+}
+
+#center-header {
+    grid-area: centerHeader;
+    display: flex;
+    flex-direction: row;
+}
+
+#right-header {
+    width: 100%;
+	grid-area: rightHeader;
+}
+
+#left-header {
+	grid-area: leftHeader;
+}
+
+#center-content {
+    grid-area: centerContent;
+    display: flex;
+    flex-direction: row;
+}
+
+#right-content {
+	grid-area: rightContent;
+    align-self: start;
+    width: 100%;
+}
+
+#left-content {
+	grid-area: leftContent;
+    padding: 4%;
+    align-self: start;
+}
+
+table,
+td,
+th {
+	border: 1px solid #ddd;
+	text-align: center;
+    vertical-align: middle;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+
+th {
+	text-align: center;
+	background-color: #963800;
+	color: white;
+}
+
+tr:nth-child(even) {
+	background-color: #FDEBD7;
+}
+
+tr:nth-child(odd) {
+	background-color: #fff;
+}
+
+button.config{
+    border: none;
+    outline: none;
+    background: white;
+    padding: 10%;
+}
+
+button.config:hover {
+    outline: 1px solid black;
+}
+
+
