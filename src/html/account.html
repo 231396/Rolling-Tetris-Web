@@ -10,35 +10,33 @@
 </head>
 
 <body>
-    <h1 class="center-margin">
-        Editar perfil
-    </h1>
-
-    <form class="center-margin">
-        <label for="full_name">Nome Completo</label>
-        <input type="text" id="full_name" name="Nome completo">
-        
-        <label for="birth_date">Data de Nascimento</label>
-        <input type="date" id="birth_date" name="Data de nascimento">
-        
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" name="CPF">
-        
-        <label for="phone_number">Telefone</label>
-        <input type="text" id="phone_number" name="Telefone">
-        
-        <label for="email">E-mail</label>
-        <input type="text" id="email" name="E-mail">
-        
-        <label for="username">Usuário</label>
-        <input type="text" id="username" name="Usuário">
-        
-        <label for="password">Senha</label>
-        <input type="password" id="password" name="Senha">
-        
-        <input type="button" id="submit" value="Salvar" class="btn btn-primary">
-    </form>
-	
+    <div id="box-center">
+        <h1> Editar Perfil </h1>
+        <form class="center-margin">
+            <label for="full_name">Nome Completo</label>
+            <input type="text" name="full_name">
+            
+            <label for="birth_date">Data de Nascimento</label>
+            <input type="date" name="birth_date" readonly>
+            
+            <label for="cpf">CPF</label>
+            <input type="text" name="cpf" readonly>
+            
+            <label for="phone_number">Telefone</label>
+            <input type="text" name="phone_number" >
+            
+            <label for="email">E-mail</label>
+            <input type="text" name="email">
+            
+            <label for="username">Nome de Usuário</label>
+            <input type="text" name="username" readonly>
+            
+            <label for="password">Senha</label>
+            <input type="password" name="password">
+            
+            <input type="button" id="submit" value="Salvar" class="btn btn-primary">
+        </form>
+    </div>	
 </body>
 
 </html>
