@@ -9,12 +9,12 @@ body{
     font-size: 1em;
 }
 
-.grid-center{
-    margin: 0 auto;
-}
-
 .center-text {
 	text-align: center;
+}
+
+.center-margin{
+    margin: 0 auto;
 }
 
 #grid-layout {
@@ -22,23 +22,18 @@ body{
 	width: auto;
 	height: 100vh;
 	grid-template:
-		"leftHeader centerHeader rightHeader" 15%
-		"leftContent centerContent rightContent" 80% / 20% 55% 20%;
+		"leftHeader header header" 15%
+        "leftContent centerContent rightContent" 80% 
+        / 25% 50% 25%;
     justify-items: center;
     align-items: center;
 }
 
-#center-header {
-    grid-area: centerHeader;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+#header {
+    grid-area: header;
+    margin-right: 16%;
     width: 100%;
-}
-
-#right-header {
-    width: 100%;
-	grid-area: rightHeader;
+    text-align: end;
 }
 
 #left-header {
@@ -47,21 +42,24 @@ body{
 
 #center-content {
     grid-area: centerContent;
-    display: flex;
-    flex-direction: row;
+    width: 100%;
+    display: grid;
+    grid: 100% / 1fr fit-content(50%) 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+#left-content {
+	grid-area: leftContent;
     align-self: start;
+    padding: 4% 10%;
 }
 
 #right-content {
 	grid-area: rightContent;
     align-self: start;
     width: 100%;
-}
-
-#left-content {
-	grid-area: leftContent;
-    padding: 4%;
-    align-self: start;
+    margin-right: 50%;
 }
 
 table,
@@ -73,12 +71,10 @@ th {
 }
 
 table {
-	border-collapse: collapse;
-	width: 100%;
-}
-
-th, td {
-    padding: 5px;
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+    height: 400px;
 }
 
 th {
@@ -95,15 +91,17 @@ tr:nth-child(odd) {
 	background-color: #fff;
 }
 
-button.config{
+.config{
     border: none;
     outline: none;
     background: white;
-    padding: 10%;
+    padding: 20px;
+    border-radius: 15px;
+    margin: 0 1%;
 }
 
 button.config:hover {
-    outline: 1px solid black;
+    background: lightblue;
 }
 
 .box-points{
@@ -115,6 +113,26 @@ button.config:hover {
     margin: 0 2%;
 }
 
+.status-box{
+    background-color: red;
+    top: 0;
+}
+
 #tretis-canvas{
     border: 3px solid white;
+}
+
+.input-box{
+    display: inline-block;
+    margin: .2em 0;
+    padding: 5px;
+    font-size: 1.2em;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+h2{
+    border-bottom: 1px solid black;
+    margin: 25px 5% 15px 5%;
 }

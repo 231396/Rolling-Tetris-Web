@@ -16,54 +16,110 @@
             <h1 class="center-text">ROLLING TETRIS</h1>
         </div>
 
-        <div id="center-header">
-            <div class="box-points">
-                <label>Tempo</label>
-                <div id="timer"> 00:00 </div>
-            </div>
-            <div class="box-points">
-                <label>Pontuação</label>
-                <div id="score"> 0000 </div>
-            </div>
-        </div>
-
-        <div id="right-header">
+        <div id="header">
+            <button class="config">Sobre</button>
             <button class="config">Configurar Conta</button>
             <button class="config">Log Out</button>
         </div>
 
         <div id="center-content">
-            <img alt="tretis game" src="../../static/tetris-placeholder.png" height="500" id="tretis-canvas">
+            <div class="status-box">
+                <div class="box-points">
+                    <label>Tempo</label>
+                    <span id="timer"> 00:00 </span>
+                </div>
+                <div class="box-points">
+                    <label>Pontuação</label>
+                    <span id="score"> 0000 </span>
+                </div>
+            </div>
+            <img alt="tretis game" src="../../static/tetris-placeholder.png" height="620" id="tretis-canvas">
         </div>
 
         <div id="left-content">
             <h2 class="center-text">INSTRUÇÕES</h2>
-            <p>Use AWSD ou &larr;&uarr;&darr;&rarr; do teclado para mover as peças </p>
-            <p>Use Q ou Z para rotacionar para esquerda </p>
-            <p>Use E ou X para rotacionar para direita </p>
-            <p>Aperte P para pausar e despausar o jogo</p>
-            <p>Aperte R para recomeçar o jogo (cuidado perderá pontuação)</p>
+            <span class="input-box">A ou &larr;</span> mover para esquerda<br>
+            <span class="input-box">W ou &uarr;</span> mover para cima<br>
+            <span class="input-box">S ou &darr;</span> mover para baixo<br>
+            <span class="input-box">D ou &rarr;</span> mover para direita<br>
+            <span class="input-box">Q ou Z</span> mover para esquerda<br>
+            <span class="input-box">E ou X</span> mover para esquerda<br>
+            <span class="input-box">P</span> pausa e continua o jogo<br>
+            <span class="input-box">R</span> reiniciar o jogo (cuidado perderá pontuação)<br>
+            <h2 class="center-text">O JOGO</h2> essa é uma versão do jogo tetris onde existe uma peça que consegue inverter o tabuleiro
         </div>
-
         
         <div id="right-content">
+            <h2 class="center-text"> TOP 10 Ranking</h2>
             <table>
                 <tr>
+                    <th>Posição</th>
                     <th>Usuario</th>
                     <th>Pontuação</th>
                     <th>Data</th>
                 </tr>
                 <tr>
+                    <td>1º</td>
                     <td>Spectra</td>
                     <td>1000</td>
                     <td>01/01/19</td>
                 </tr>
                 <tr>
+                    <td>2º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>3º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>4º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>5º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>6º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>7º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>8º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>9º</td>
+                    <td>Spectra</td>
+                    <td>1000</td>
+                    <td>01/01/19</td>
+                </tr>
+                <tr>
+                    <td>10º</td>
                     <td>Spectra</td>
                     <td>1000</td>
                     <td>01/01/19</td>
                 </tr>
             </table>
+            <button class="config">Configurar Conta</button>
         </div>
 
     </div>
