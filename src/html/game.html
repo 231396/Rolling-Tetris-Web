@@ -17,35 +17,33 @@
         </div>
 
         <div id="header">
-            <button class="config">Sobre</button>
-            <button class="config">Configurar Conta</button>
-            <button class="config">Log Out</button>
+            <button class="link-btn">Regras do Jogo</button>
+            <button class="link-btn">Ranking Global</button>
+            <button class="link-btn">Sobre Nós</button>
+            <button class="link-btn">Configurar Conta</button>
+            <button class="link-btn">Log Out</button>
         </div>
 
         <div id="center-content">
             <div class="status-box">
-                <div class="box-points">
-                    <label>Tempo</label>
-                    <span id="timer"> 00:00 </span>
-                </div>
-                <div class="box-points">
-                    <label>Pontuação</label>
-                    <span id="score"> 0000 </span>
-                </div>
+                <label>Tempo</label>
+                <div id="timer"> 00:00 </div>
+                <label>Pontos</label>
+                <div id="score"> 0000 </div>
             </div>
-            <img alt="tretis game" src="../../static/tetris-placeholder.png" height="620" id="tretis-canvas">
+            <img alt="tretis game" src="../../static/tetris-placeholder.png" id="tretis-canvas">
         </div>
 
         <div id="left-content">
             <h2 class="center-text">INSTRUÇÕES</h2>
-            <span class="input-box">A ou &larr;</span> mover para esquerda<br>
-            <span class="input-box">W ou &uarr;</span> mover para cima<br>
-            <span class="input-box">S ou &darr;</span> mover para baixo<br>
-            <span class="input-box">D ou &rarr;</span> mover para direita<br>
-            <span class="input-box">Q ou Z</span> mover para esquerda<br>
-            <span class="input-box">E ou X</span> mover para esquerda<br>
-            <span class="input-box">P</span> pausa e continua o jogo<br>
-            <span class="input-box">R</span> reiniciar o jogo (cuidado perderá pontuação)<br>
+            <span class="input-key">A ou &larr;</span> mover para esquerda<br>
+            <span class="input-key">W ou &uarr;</span> mover para cima<br>
+            <span class="input-key">S ou &darr;</span> mover para baixo<br>
+            <span class="input-key">D ou &rarr;</span> mover para direita<br>
+            <span class="input-key">Q ou Z</span> mover para esquerda<br>
+            <span class="input-key">E ou X</span> mover para esquerda<br>
+            <span class="input-key">P</span> pausa e continua o jogo<br>
+            <span class="input-key">R</span> reiniciar o jogo (cuidado perderá pontuação)<br>
             <h2 class="center-text">O JOGO</h2> essa é uma versão do jogo tetris onde existe uma peça que consegue inverter o tabuleiro
         </div>
         
@@ -119,7 +117,6 @@
                     <td>01/01/19</td>
                 </tr>
             </table>
-            <button class="config">Configurar Conta</button>
         </div>
 
     </div>
