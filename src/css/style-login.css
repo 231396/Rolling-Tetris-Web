@@ -11,6 +11,7 @@
 }
 
 .background {
+	background: fixed;
 	display: block;
 	background-image: url(../../static/Background_Login.jpg);
 	background-size: cover;
@@ -21,8 +22,8 @@
 	border-radius: 40px;
 	background-color: #37DA1B;
 	margin: 2%;
-    border: 2px solid black;
-    padding: 5px 5px;
+  border: 2px solid black;
+  padding: 5px 5px;
 }
 
 h2 span{
