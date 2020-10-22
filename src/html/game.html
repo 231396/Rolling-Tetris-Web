@@ -13,23 +13,39 @@
     <div id="grid-layout">
 
         <div id="left-header">
-            <h1 class="center-text">ROLLING TETRIS</h1>
+            <h1 class="center-text logo">
+                <span style="color: #F30C36">R</span>
+                <span style="color: #FE8510">O</span>
+                <span style="color: #FFCC1E">L</span>
+                <span style="color: #4BC734">L</span>
+                <span style="color: #00B9E9">I</span>
+                <span style="color: #C01FBA">N</span>
+                <span style="color: violet">G</span>
+                <br>
+                <span style="color: #F30C36">T</span>
+                <span style="color: #FE8510">E</span>
+                <span style="color: #FFCC1E">T</span>
+                <span style="color: #4BC734">R</span>
+                <span style="color: #00B9E9">I</span>
+                <span style="color: #C01FBA">S</span>
+            </h1>
         </div>
 
         <div id="header">
-            <button class="link-btn">Regras do Jogo</button>
-            <button class="link-btn">Ranking Global</button>
-            <button class="link-btn">Sobre Nós</button>
-            <button class="link-btn">Configurar Conta</button>
-            <button class="link-btn">Log Out</button>
+            <a class="link-btn" href="account.html" target="popup" onclick="window.open('rules.html','popup','width=400,height=400,scrollbars=no'); return false;">Regras do Jogo</a>
+            <a class="link-btn" href="ranking.html">Ranking Global</a>
+            <a class="link-btn" href="creditos.html">Créditos</a>
+            <a class="link-btn" href="account.html">Configurar Conta</a>
+            <button class="link-btn" onclick="logOut()">Log Out</button>
         </div>
 
         <div id="center-content">
             <div class="status-box">
                 <label>Tempo</label>
                 <div id="timer"> 00:00 </div>
+                <span class="status-box-space"></span>
                 <label>Pontos</label>
-                <div id="score"> 0000 </div>
+                <div id="score"> 000.000 </div>
             </div>
             <img alt="tretis game" src="../../static/tetris-placeholder.png" id="tretis-canvas">
         </div>

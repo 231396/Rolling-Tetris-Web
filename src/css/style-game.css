@@ -1,6 +1,8 @@
 * {
 	margin: 0;
-	padding: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
 	box-sizing: border-box;
 }
 
@@ -20,10 +22,9 @@ body{
 #grid-layout {
 	display: grid;
 	width: auto;
-	height: 100vh;
 	grid-template:
-		"leftHeader header header" 15%
-        "leftContent centerContent rightContent" 80% 
+		"leftHeader header header" 1fr
+        "leftContent centerContent rightContent" 5fr 
         / 25% 50% 25%;
     justify-items: center;
     align-items: center;
@@ -31,9 +32,13 @@ body{
 
 #header {
     grid-area: header;
-    margin-right: 16%;
     width: 100%;
-    text-align: end;
+    display: flex;
+    flex-direction:row;
+}
+#header > *{
+    flex: 1 1 auto;
+    margin: 0 2.5%;
 }
 
 #left-header {
@@ -41,25 +46,25 @@ body{
 }
 
 #center-content {
+    position: relative;
     grid-area: centerContent;
     width: 100%;
-    display: grid;
-    grid: 100% / 1fr fit-content(50%) 1fr;
-    justify-items: center;
-    align-items: center;
+    height: 100%;
+    background-image: linear-gradient(to right,gray, white, gray);
+    border-radius: 15px;
+    border: 3px solid lightgray;
 }
 
 #left-content {
 	grid-area: leftContent;
     align-self: start;
-    padding: 4% 10%;
+    padding: 0 10%;
 }
 
 #right-content {
 	grid-area: rightContent;
     align-self: start;
     width: 100%;
-    margin-right: 50%;
 }
 
 table,
@@ -91,38 +96,89 @@ tr:nth-child(odd) {
 	background-color: #fff;
 }
 
-.config{
-    border: none;
-    outline: none;
+h1{
+    font-size: 2.5em;
+}
+
+.logo{
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    letter-spacing: -.1em;
+}
+
+.logo:hover{
+    transform: scale(1.2);
+    transition: .1s ease transform;
+    transition-delay: 0s;
+}
+
+h2{
+    border-bottom: 1px solid black;
+    margin: 25px 5% 15px 5%;
+}
+
+.link-btn{
+    text-decoration: none;
+    color: black;
+    text-align: center;
     background: white;
     padding: 20px;
     border-radius: 15px;
-    margin: 0 1%;
+    cursor: pointer;
 }
 
-button.config:hover {
+.link-btn:hover {
     background: lightblue;
 }
 
-.box-points{
-    border: 1px solid black;
-    background-color: white;
-    text-align: center;
-    border-radius: 16px;
-    width: 16%;
-    margin: 0 2%;
+.status-box{
+    position: absolute;
+    top: 35%;
+    left: 5%;
+    z-index: 1;
+    border: 4px solid white;
+    background-color: gray;
+    box-shadow: 0px 0px 0px 3px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 20%;
+    padding: 1.5% 0 2.5% 0;
 }
 
-.status-box{
-    background-color: red;
-    top: 0;
+.status-box div {
+    background-color: black;
+    text-align: center;
+    border-radius: 10px;
+    width: 90%;
+    padding: 2.5% 0;
+    font-size: 1.2em;
 }
+
+.status-box label {
+    font-size: bold;
+    text-shadow: 1px 2px 2px black;
+    margin-bottom: 3%;
+    font-size: 1.2em;
+}
+
+.status-box-space{
+    margin: 3% 0;
+}
+
 
 #tretis-canvas{
-    border: 3px solid white;
+    border: 3px solid gray;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    height: 100%;
 }
 
-.input-box{
+.input-key{
     display: inline-block;
     margin: .2em 0;
     padding: 5px;
@@ -130,9 +186,4 @@ button.config:hover {
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
-}
-
-h2{
-    border-bottom: 1px solid black;
-    margin: 25px 5% 15px 5%;
 }
