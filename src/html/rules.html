@@ -10,7 +10,18 @@
 </head>
 
 <body>
-	
+    <h1>Sobre o Jogo</h1>
+    <h2>Tetris Clasico</h2>
+    <h2>Rolling Tetris</h2>
+    <div>
+        Ao longo da partida e de maneira aleatória podem surgir peças especiais que, quando compõem uma linha eliminada, provocam a rotação do tabuleiro. Ou seja, se as peças estavam "caindo" antes da linha com a peça especial ser eliminada, elas passarão a "subir" e vice-versa (daí o nome Rolling Tetris). A cada rotação, as peças não eliminadas que estão acumuladas em um extremo do tabuleiro (seja na parte inferior, quando as peças "caem", ou superior, quando as peças "sobem") devem ser transferidas para o outro extremo, mantendo-se as posições.
+        O jogador deverá ter a opção de escolha do tamanho do tabuleiro em que a partida se desenrolará. Pelo menos duas opções deverão ser dadas: (i) um tabuleiro clássico, com 10 células de largura e 20 células de altura (igual ao da Figura 1); e (ii) um tabuleiro maior, de dimensões 22 x 44 células (largura x altura).
+        Além da peça especial que leva à rotação do tabuleiro, formada por uma única célula do tabuleiro (quadradinho) e exibida em cor chamativa, seis peças diferentes, cujas estruturas são dadas na Figura 2, poderão surgir na tela (sempre uma por vez). A escolha da peça que surgirá deverá ser feita aleatoriamente pelo jogo, sendo que todas as sete peças (seis da Figura 2 mais a peça especial) deverão ter a mesma probabilidade de surgimento.
+        Peças do Tetris
+
+        A pontuação deve levar em conta um bônus, a ser aplicado sempre que o usuário eliminar mais de uma linha de uma única vez. Cada linha eliminada gerará uma soma de 10 pontos no placar total do usuário e o bônus corresponderá à multiplicação dos pontos gerados em uma eliminação pelo número de linhas eliminadas simultaneamente. Por exemplo, se o jogador eliminar 3 linhas simultaneamente, será adicionado ao seu placar (10 + 10 + 10) x 3 = 90 pontos. Lembre-se que o usuário poderá eliminar, no máximo, quatro linhas simultaneamente.
+        A velocidade com que cada peça sobe/desce pelo tabuleiro deve variar conforme o placar do jogador, para que a dificuldade aumente com o passar do tempo. Você deverá programar o jogo para que a velocidade de subida aumente sempre que o jogador atingir uma pontuação múltipla de 300 pontos. Caberá a você calibrar como esta velocidade mudará. Cuide para que o jogo não se torne muito difícil muito rapidamente nem seja muito lento para se tornar desafiado
+    </div>
 </body>
 
 </html>

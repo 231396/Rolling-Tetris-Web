@@ -34,18 +34,24 @@
         <div id="header">
             <a class="link-btn" href="account.html" target="popup" onclick="window.open('rules.html','popup','width=400,height=400,scrollbars=no'); return false;">Regras do Jogo</a>
             <a class="link-btn" href="ranking.html">Ranking Global</a>
-            <a class="link-btn" href="creditos.html">Créditos</a>
             <a class="link-btn" href="account.html">Configurar Conta</a>
-            <button class="link-btn" onclick="logOut()">Log Out</button>
+            <a class="link-btn" href="login.html" onclick="logOut()">Log Out</a>
         </div>
 
         <div id="center-content">
-            <div class="status-box">
+            <div id="status-box" class="game-box">
                 <label>Tempo</label>
                 <div id="timer"> 00:00 </div>
                 <span class="status-box-space"></span>
                 <label>Pontos</label>
                 <div id="score"> 000.000 </div>
+            </div>
+            <div id="size-game-box" class="game-box">
+                <label>Altura</label>
+                <input type="number" id="game-width" value="10" min="4" max="10">
+                <span class="status-box-space"></span>
+                <label>Largura</label>
+                <input type="number" id="game-height" value="20" min="4" max="40">
             </div>
             <img alt="tretis game" src="../../static/tetris-placeholder.png" id="tretis-canvas">
         </div>
