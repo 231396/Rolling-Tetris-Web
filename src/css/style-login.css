@@ -1,22 +1,13 @@
 *{
     margin: 0;
     padding: 0;
+    border: 0;
+    text-decoration: none;
+    color: black;
 }
 
 body{
     font-size: 1em;
-}
-
-.box {
-    box-sizing: border-box;
-	margin: 100px auto;
-	padding: 2.5%;
-	display: block;
-	width: 25%;
-	background: #fff;
-	text-align: center;
-	border-radius: 40px;
-    background-color: rgba(255, 255, 255, 0.9);
 }
 
 .background {
@@ -27,17 +18,21 @@ body{
 	background-repeat: no-repeat;
 }
 
-a.btn{
-    text-decoration: none;
-    color: black;
-}
-
-.btn {
+.box {
+    box-sizing: border-box;
+	display: block;
+	background: #fff;
+	text-align: center;
 	border-radius: 40px;
-	background-color: #37DA1B;
-    border: 2px solid black;
-    padding: 5px 10px;
-    width: 40%;
+    background-color: rgba(255, 255, 255, 0.9);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 35%;
+    padding: 50px;
 }
 
 h2 span{
@@ -53,9 +48,36 @@ label{
     margin-bottom: 10px;
 }
 
-input[type="text"]{
+input[type="text"],
+input[type="password"]{
     box-sizing: border-box;
     display: block;
     width: 100%;
     padding: .5em .5em;
+    outline: none;
+    border: 1px solid #0069d9;
+}
+
+#btn-holder{
+    display: flex;
+    justify-content: center;
+}
+
+#btn-holder > *{
+    flex: 1 1 auto;
+    margin: 0 2.5%;
+}
+
+input.btn, a.btn {
+    color: white;
+    background-color: #0069d9;
+    font-size: 1.2em;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.btn:hover {
+	color: white;
+	background-color: #0054ad;
+	border: inset 1px solid #003064;
 }

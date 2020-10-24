@@ -79,14 +79,17 @@ th {
 table {
     margin: 0 auto;
     border-collapse: collapse;
-    width: 80%;
-    height: 400px;
+    width: 90%;
 }
 
 th {
 	text-align: center;
 	background-color: #963800;
 	color: white;
+}
+
+tr{
+    height: 30px;
 }
 
 tr:nth-child(even) {
@@ -146,7 +149,7 @@ h2{
 }
 
 #status-box{
-    top: 35%;
+    top: 25%;
     left: 5%;
     width: 20%;
     padding: 1.5% 0 2.5% 0;
