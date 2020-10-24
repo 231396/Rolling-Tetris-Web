@@ -14,14 +14,13 @@
     <h2>Tetris Clasico</h2>
     <h2>Rolling Tetris</h2>
     <div>
-        Ao longo da partida e de maneira aleatória podem surgir peças especiais que, quando compõem uma linha eliminada, provocam a rotação do tabuleiro. Ou seja, se as peças estavam "caindo" antes da linha com a peça especial ser eliminada, elas passarão a "subir" e vice-versa (daí o nome Rolling Tetris). A cada rotação, as peças não eliminadas que estão acumuladas em um extremo do tabuleiro (seja na parte inferior, quando as peças "caem", ou superior, quando as peças "sobem") devem ser transferidas para o outro extremo, mantendo-se as posições.
-        O jogador deverá ter a opção de escolha do tamanho do tabuleiro em que a partida se desenrolará. Pelo menos duas opções deverão ser dadas: (i) um tabuleiro clássico, com 10 células de largura e 20 células de altura (igual ao da Figura 1); e (ii) um tabuleiro maior, de dimensões 22 x 44 células (largura x altura).
-        Além da peça especial que leva à rotação do tabuleiro, formada por uma única célula do tabuleiro (quadradinho) e exibida em cor chamativa, seis peças diferentes, cujas estruturas são dadas na Figura 2, poderão surgir na tela (sempre uma por vez). A escolha da peça que surgirá deverá ser feita aleatoriamente pelo jogo, sendo que todas as sete peças (seis da Figura 2 mais a peça especial) deverão ter a mesma probabilidade de surgimento.
-        Peças do Tetris
+        Tetris é composto de um campo de jogo, em que diferentes peças chamada "tetrominós" descem do topo até o fundo da tela. Durante a descida de cada peça, o jogador pode mover as peças lateralmente, ou rotacioná-las, até que toquem uma peça que já foi colocada anteriormente. O jogador não pode impedir que as peças caiam, ou pará-las, mas ele pode acelerá-las.<br/><br/>
 
-        A pontuação deve levar em conta um bônus, a ser aplicado sempre que o usuário eliminar mais de uma linha de uma única vez. Cada linha eliminada gerará uma soma de 10 pontos no placar total do usuário e o bônus corresponderá à multiplicação dos pontos gerados em uma eliminação pelo número de linhas eliminadas simultaneamente. Por exemplo, se o jogador eliminar 3 linhas simultaneamente, será adicionado ao seu placar (10 + 10 + 10) x 3 = 90 pontos. Lembre-se que o usuário poderá eliminar, no máximo, quatro linhas simultaneamente.
-        A velocidade com que cada peça sobe/desce pelo tabuleiro deve variar conforme o placar do jogador, para que a dificuldade aumente com o passar do tempo. Você deverá programar o jogo para que a velocidade de subida aumente sempre que o jogador atingir uma pontuação múltipla de 300 pontos. Caberá a você calibrar como esta velocidade mudará. Cuide para que o jogo não se torne muito difícil muito rapidamente nem seja muito lento para se tornar desafiado
-    </div>
+        O objetivo do jogo é usar as peças para preencher o máximo de linhas horizontais possíveis. Quando uma linha é preenchida, ela desaparece, e todos os blocos acima dela caem. Completar as linhas também concede pontos, e após acumular certo número de pontos, o jogador avança de fase. Além disso, a cada fase, a velocidade de queda dos blocos aumenta. O jogador pode limpar múltiplas linhas ao mesmo tempo, que também dá pontos extras.<br/><br/>
+
+        O jogador perde quando os blocos se acumularem até o topo, e o jogador não conseguir posicionar um bloco dentro do campo de jogo por conta disso. O jogo não tem fim, o jogador pode continuar jogando e avançando fases até que sofra uma derrota.<br/><br/>
+
+        No Rolling Tetris, existe uma peça especial (seu formato é a de um quadrado do menor tamanho). Quando o jogador preenche uma linha usando esta peça, o campo de jogo é invertido, e todas as peças começam a "cair para cima". As peças ficam depositadas no topo, e novas peças surgem do fundo da tela, e começam a ir para cima.<br/><br/></div>
 </body>
 
 </html>
