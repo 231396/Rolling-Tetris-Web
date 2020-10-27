@@ -77,7 +77,5 @@ input.btn, a.btn {
 }
 
 .btn:hover {
-	color: white;
 	background-color: #0054ad;
-	border: inset 1px solid #003064;
 }
