@@ -349,6 +349,7 @@ inp.addInput('rotateRight', "e", "x", () => Rotate(1));
 inp.addInput('start', "Enter", "Enter", () => Start());
 inp.addInput('pause', "p", "p", () => GamePause());
 inp.addInput('surrender', "f", "f", () => EndGame());
+inp.addInput('surrender', "m", "m", () => Mute());
 
 //inp.addInput('inv', "k", "", () => InvertTetris());
 
@@ -357,15 +358,15 @@ inp.addInput('surrender', "f", "f", () => EndGame());
 const canvas = document.getElementById("tetris-canvas");
 
 const timerHtml = document.getElementById("timer");
-
 const scoreHtml = document.getElementById("score");
-
 const levelHtml = document.getElementById("level");
-
 const linesHtml = document.getElementById("lines");
 
 /** @type {HTMLAudioElement} */
 const musicHtml = document.getElementById("music");
+const gameTextHtml = document.getElementById("game-text");
+const muteHtml = document.getElementById("mute-btn");
+muteHtml.onclick = Mute;
 
 document.getElementById("btn-board-normal").onclick = () => SetArenaSize(10, 20);
 document.getElementById("btn-board-big").onclick = () => SetArenaSize(22, 44);
@@ -403,6 +404,11 @@ var lastTime = 0;
 SetArenaSize(10, 20);
 Update();
 // ---------------- BASIC GAME FUNCS ----------------
+
+function Mute(){
+    musicHtml.muted = !musicHtml.muted;
+    muteHtml.innerHTML = musicHtml.muted ? "Mudo" : "Desmudo"
+}
 
 function SetArenaSize(width, height){
     if (inGame) return;
@@ -443,11 +449,13 @@ function GamePause(bool) {
 	paused = bool || !paused;
 	if(paused){
 		timer.Pause();
-		musicHtml.pause();
+        musicHtml.pause();
+        gameTextHtml.innerHTML = "Pausado";
 	}
 	else{
-		timer.Resume();
+        timer.Resume();
 		musicHtml.play();
+        gameTextHtml.innerHTML = "";
 	}
 }
 
@@ -545,7 +553,8 @@ function GameEnded() {
 
 function EndGame(){
 	console.log("Game Ended");
-	GamePause(true);
+    GamePause(true);
+    gameTextHtml.innerHTML = "Game Over";
 	inGame = false;
 }
 
