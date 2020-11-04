@@ -45,7 +45,6 @@
         </div>
 
         <div id="center-content">
-            <button id="mute-btn">MUTE</button>
             <div id="status-box" class="game-box">
                 <label>Tempo</label>
                 <div id="timer"> 00:00 </div>
@@ -60,15 +59,17 @@
                 <div id="lines"> 00 </div>
             </div>
             <div id="size-game-box" class="game-box">
+                <label>Menu</label>
+                <span class="status-box-space"></span>
+                <button id="btn-game-start" class="game-size-btn">Iniciar Jogo</button>
+                <span class="status-box-space"></span>
+                <button id="mute-btn" class="game-size-btn">Mutar</button>
+                <span class="status-box-space"></span>
                 <label>Game Size</label>
                 <span class="status-box-space"></span>
                 <button id="btn-board-normal" class="game-size-btn">10 x 20</button>
                 <span class="status-box-space"></span>
                 <button id="btn-board-big" class="game-size-btn">22 x 44</button>
-                <span class="status-box-space"></span>
-                <label>Game Size</label>
-                <span class="status-box-space"></span>
-                <button id="btn-game-start" class="game-size-btn">Start</button>
             </div>
             <div id="game-text">Pausado</div>
             <canvas id="tetris-canvas" width="10" height="20">

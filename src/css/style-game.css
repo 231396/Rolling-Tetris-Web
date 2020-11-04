@@ -180,10 +180,9 @@ h2{
 }
 
 #size-game-box{
-    top: 35%;
+    top: 27%;
     right: 5%;
-
-    width: 18%;
+    width: 20%;
     padding: 1.5% 0 2.5% 0;
 }
 
@@ -219,12 +218,6 @@ h2{
 
 .game-size-btn:hover{
     background-color: red;
-}
-
-#mute-btn{
-    position: absolute;
-    top: 5%; 
-    left: 5%;
 }
 
 #game-text{
