@@ -1,10 +1,10 @@
-// ---------------- GAMERENDER ----------------
+//#region ---------------- GAMERENDER ----------------
+
 class RenderGame {    
 	/** @param {HTMLCanvasElement} canvas*/
-	constructor(canvas, width, height) {
+	constructor(canvas) {
 		this.canvas = canvas;
 		this.context = canvas.getContext('2d');
-		this.SetCanvasSize(width, height)
 	}
 	SetCanvasSize(width, height){
 		this.canvas.width = width;
@@ -32,9 +32,9 @@ class RenderGame {
 		this.context.fillRect(x, y, 1, 1);
 	}
 }
+//#endregion
 
-
-// ---------------- InputHandler ----------------
+//#region ---------------- InputHandler ----------------
 
 class Input
 {
@@ -86,49 +86,24 @@ class InputKey{
 		this.func();
 	}
 }
+//#endregion
 
-
-const inp = new Input();
-
-inp.addInput('up', "w", "ArrowUp", () => MoveY(-1));
-inp.addInput('down', "s", "ArrowDown", () => MoveY(1));
-inp.addInput('right', "d", "ArrowRight", () => MoveX(1));
-inp.addInput('left', "a", "ArrowLeft", () => MoveX(-1));
-inp.addInput('rotateLeft', "q", "z", () => Rotate(-1));
-inp.addInput('rotateRight', "e", "x", () => Rotate(1));
-inp.addInput('pause', "p", "p", () => GamePause());
-inp.addInput('restart', "r", "r", () => Restart());
-
-//inp.addInput('inv', "k", "", () => InvertTetris());
-// inp.addInput('down', "j", "", () => down());
-// function up(){
-//     score.score += 100;
-//     UpdateScore();
-// }
-// function down(){
-//     score.score -= 100;
-//     UpdateScore();
-// }
-
-
-// ---------------- tetromino ----------------
-
-// const tetrominoEnum= {
-// 	top: 0,
-// 	right: 1,
-// 	bottom: 2,
-// 	left: 3
-// }
+//#region ---------------- Tetromino ----------------
 
 class TetrisScore{
 	constructor(){
 		this.score = 0;
+		this.lines = 0;
+		this.level = 0;
 	}
 	ScorePoints(rows){
 		this.score += (10 * rows) * rows;
+		this.lines += rows;
 	}
 	Reset(){
+		this.level = 0;
 		this.score = 0;
+		this.lines = 0;
 	}
 }
 
@@ -278,9 +253,9 @@ class Block{
 		this.filled = false;
 	}
 }
+//#endregion 
 
-
-// ---------------- util ----------------
+//#region ---------------- Util ----------------
 
 class Vector2 {
 	/** @param {number} x @param {number} y*/
@@ -356,10 +331,26 @@ function RandomValueMinMax(min, max){
 	return Math.floor(Math.random() * (max - min) + min);
 }
 
+//#endregion
+
 
 // ---------------- GAMEPLAY ----------------
 
+// ---------------- INPUTS ----------------
 
+const inp = new Input();
+
+inp.addInput('up', "w", "ArrowUp", () => MoveY(-1));
+inp.addInput('down', "s", "ArrowDown", () => MoveY(1));
+inp.addInput('right', "d", "ArrowRight", () => MoveX(1));
+inp.addInput('left', "a", "ArrowLeft", () => MoveX(-1));
+inp.addInput('rotateLeft', "q", "z", () => Rotate(-1));
+inp.addInput('rotateRight', "e", "x", () => Rotate(1));
+inp.addInput('start', "Enter", "Enter", () => Start());
+inp.addInput('pause', "p", "p", () => GamePause());
+inp.addInput('surrender', "f", "f", () => EndGame());
+
+//inp.addInput('inv', "k", "", () => InvertTetris());
 
 // ---------------- HTML ELEMENTS ----------------
 
@@ -369,30 +360,58 @@ const timerHtml = document.getElementById("timer");
 
 const scoreHtml = document.getElementById("score");
 
+const levelHtml = document.getElementById("level");
+
+const linesHtml = document.getElementById("lines");
+
 /** @type {HTMLAudioElement} */
 const musicHtml = document.getElementById("music");
 
-// ---------------- EVENTS ----------------
-
-
+document.getElementById("btn-board-normal").onclick = () => SetArenaSize(10, 20);
+document.getElementById("btn-board-big").onclick = () => SetArenaSize(22, 44);
+document.getElementById("btn-game-start").onclick = () => Start();
 
 // ---------------- VARS ----------------
 const backgroundColor = "black";
-// 12 20
-const bound = new Vector2(12, 20);
 
-const render = new RenderGame(canvas, bound.x, bound.y);
-render.SetCanvasStyleSize(Math.min(bound.x * 20, 1200), Math.min(bound.y * 20, 1200 * .6));
+const render = new RenderGame(canvas);
+// render.SetCanvasStyleSize(Math.min(bound.x * 20, 1200), Math.min(bound.y * 20, 1200 * .6));
 
 const timer = new SimpleTimer();
 
 const score = new TetrisScore();
 
 /** @type {Block[][]} */
-const gameArea = CreateArray2D(bound.x, bound.y);
-InitGameArea();
+var gameArea;
 
+/** @type {Vector2} */
+var bound;
+
+var inGame;
+
+/** @type {Tetromino}  */
+var currentTetromino;
+
+var paused = true;
+
+var dropTime = 0;
+const initialDropDelay = 850;
+const dropDelayMutipliyer = 100;
+var dropDelay = initialDropDelay;
+var lastTime = 0;
+
+SetArenaSize(10, 20);
+Update();
 // ---------------- BASIC GAME FUNCS ----------------
+
+function SetArenaSize(width, height){
+    if (inGame) return;
+    render.SetCanvasSize(width, height);
+    gameArea = CreateArray2D(width, height);
+    bound = new Vector2(width, height);
+    InitGameArea();
+    Setup();
+}
 
 function InitGameArea() {
 	for (let x = 0; x < gameArea.length; x++)
@@ -415,6 +434,9 @@ function Setup() {
 	score.Reset();
 	UpdateScore();
 	NewTetromino();
+	for (let x = 0; x < gameArea.length; x++)
+		for (let y = 0; y < gameArea[x].length; y++)
+			render.DrawPixelColor(gameArea[x][y].color, x, y);
 }
 
 function GamePause(bool) {
@@ -429,25 +451,17 @@ function GamePause(bool) {
 	}
 }
 
-function Restart() {
+function Start(){
+	if (inGame) return;
 	console.clear();
 	Setup();
 	GamePause(false);
 	musicHtml.currentTime = 0;
 	if (inverted < 0)
 		InvertTetris();
+	inGame = true;
 }
 
-/** @type {Tetromino}  */
-var currentTetromino;
-
-var paused = true;
-
-var dropTime = 0;
-const dropDelayLevels = [800, 700, 600, 500, 400, 300, 250, 200];
-var dropDelay = dropDelayLevels[0];
-
-var lastTime = 0;
 function Update(time = 0) {
 	if (paused) {
 		requestAnimationFrame(Update);
@@ -489,9 +503,15 @@ function InvertTetris() {
 function UpdateScore() {
 	const currentScore = score.score;
 	scoreHtml.innerHTML = currentScore;
-	let speed = Math.floor(Math.min(currentScore/300, dropDelayLevels.length-1));
-	dropDelay = dropDelayLevels[speed];
-	musicHtml.volume = (speed+1) / (dropDelayLevels.length);
+	linesHtml.innerHTML = score.lines;
+	
+	let level = 1 + Math.floor(currentScore/300);
+	score.level = level;
+	levelHtml.innerHTML = score.level;
+
+	dropDelay = initialDropDelay - ((level-1) * dropDelayMutipliyer);
+
+	musicHtml.volume = Math.min(1, level/10);
 }
 
 function NewTetromino() {
@@ -515,16 +535,18 @@ function TetrominoToGameArea() {
 			}
 }
 
-function EndGame() {
+function GameEnded() {
 	for (let x = 0; x < gameArea.length; x++)
 		if (gameArea[x][0].filled === true) {
-			//LOSE CODE
-			// TODO --> SEND DATA
-			console.log("Game Ended");
-			Setup();
-			//LOSE CODE
-			break;
+			EndGame();
+			return;
 		}
+}
+
+function EndGame(){
+	console.log("Game Ended");
+	GamePause(true);
+	inGame = false;
 }
 
 function SweepRows() {
@@ -573,11 +595,9 @@ function PlaceTetromino() {
 		UpdateScore();
 	}
 	AreaLog();
-	EndGame();
+	GameEnded();
 	NewTetromino();
 }
-
-// function HardDrop(){}
 
 function DropTetromino(dir) {
 	if (Collide(0, dir)) {
@@ -626,9 +646,6 @@ function Rotate(dir) {
 }
 
 // ---------------- EXE ----------------
-
-Setup();
-Update();
 
 function AreaLog() {
 	let arr = CreateArray2D(bound.x, bound.y);

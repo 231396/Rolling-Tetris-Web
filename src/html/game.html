@@ -10,6 +10,12 @@
 </head>
 
 <body>    
+
+    <audio id="music" loop>
+        <!-- Music from Tretis 99 -->
+        <source src="../../static/Tretris99-GameTheme.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="grid-layout">
 
         <div id="left-header">
@@ -39,25 +45,32 @@
         </div>
 
         <div id="center-content">
+            <button id="mute-btn">MUTE</button>
             <div id="status-box" class="game-box">
                 <label>Tempo</label>
                 <div id="timer"> 00:00 </div>
                 <span class="status-box-space"></span>
                 <label>Pontos</label>
                 <div id="score"> 000.000 </div>
+                <span class="status-box-space"></span>
                 <label>Nível</label>
                 <div id="level"> 00 </div>
+                <span class="status-box-space"></span>
                 <label>Linhas</label>
                 <div id="lines"> 00 </div>
             </div>
             <div id="size-game-box" class="game-box">
-                <label>Altura</label>
-                <input type="number" id="game-width" value="10" min="4" max="10">
+                <label>Game Size</label>
                 <span class="status-box-space"></span>
-                <label>Largura</label>
-                <input type="number" id="game-height" value="20" min="4" max="40">
+                <button id="btn-board-normal" class="game-size-btn">10 x 20</button>
+                <span class="status-box-space"></span>
+                <button id="btn-board-big" class="game-size-btn">22 x 44</button>
+                <span class="status-box-space"></span>
+                <label>Game Size</label>
+                <span class="status-box-space"></span>
+                <button id="btn-game-start" class="game-size-btn">Start</button>
             </div>
-            <img alt="tretis game" src="../../static/tetris-placeholder.png" id="tretis-canvas">
+            <canvas id="tetris-canvas" width="10" height="20"></canvas>
         </div>
 
         <div id="left-content">
@@ -68,8 +81,9 @@
             <span class="input-key">D ou &rarr;</span> mover para direita<br>
             <span class="input-key">Q ou Z</span> mover para esquerda<br>
             <span class="input-key">E ou X</span> mover para esquerda<br>
-            <span class="input-key">P</span> pausa e continua o jogo<br>
-            <span class="input-key">R</span> reiniciar o jogo (cuidado perderá pontuação)<br>
+            <span class="input-key">Enter</span> inicia o jogo<br>
+            <span class="input-key">P</span> pausar/resumir jogo<br>
+            <span class="input-key">F</span> desistir<br>
         </div>
         
         <div id="right-content">
@@ -99,7 +113,8 @@
 
     </div>
 
-
+    <script src="../js/game/game.js"></script>
+    <script src="../js/game/tetrisGame.js"></script>
 </body>
 
 </html>

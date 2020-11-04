@@ -183,17 +183,20 @@ h2{
     top: 35%;
     right: 5%;
 
-    width: 20%;
+    width: 18%;
     padding: 1.5% 0 2.5% 0;
 }
 
-
-#tretis-canvas{
-    border: 3px solid gray;
+#tetris-canvas{
     position: absolute;
-    left: 50%;
-    transform: translate(-50%);
+    left:0;
+    right:0; 
+    margin: 0 auto;
     height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    image-rendering: -moz-crisp-edges;
+    transform: rotate(0deg);
 }
 
 .input-key{
@@ -204,4 +207,22 @@ h2{
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
+}
+
+.game-size-btn{
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 85%;
+    height: 2rem;
+}
+
+.game-size-btn:hover{
+    background-color: red;
+}
+
+#mute-btn{
+    position: absolute;
+    top: 5%; 
+    left: 5%;
 }
