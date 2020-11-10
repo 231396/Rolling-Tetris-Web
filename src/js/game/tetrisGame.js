@@ -491,14 +491,19 @@ function Start(){
     readyStart = false;
 }
 
+function Reset(){
+    EndGame();
+    Setup();
+}
+
 function Update(time = 0) {
-	if (paused) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
+
+	if (paused || !inGame) {
 		requestAnimationFrame(Update);
 		return;
 	}
-
-	const deltaTime = time - lastTime;
-	lastTime = time;
 
 	timer.Run(deltaTime);
 	timerHtml.innerHTML = timer.ToString();
@@ -518,12 +523,6 @@ function Update(time = 0) {
 				render.DrawPixelColor(currentTetromino.color, x + currentTetromino.position.x, y + currentTetromino.position.y);
 
 	requestAnimationFrame(Update);
-}
-
-
-function Reset(){
-    EndGame();
-    Setup();
 }
 
 // ---------------- GAME RULE FUNC ----------------
