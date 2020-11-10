@@ -107,8 +107,23 @@ class TetrisScore{
 	}
 }
 
+const tetrominoTypes = "SZJLTOUID";
+
+const tetrominoColors = {
+	S: "Lime",
+	Z: "Red",
+	J: "RoyalBlue",
+	L: "Orange",
+	T: "RebeccaPurple",
+	O: "Yellow",
+	U: "Orchid",
+	I: "Cyan",
+	D: "Gray",
+}
+
+
 const tetrominoShapes = {
-	S: 	
+	S:
 	[
 		[0,1,1],
 		[1,1,0],
@@ -159,13 +174,6 @@ const tetrominoShapes = {
 	D: [ [1] ], //Dot
 }
 
-const tetrominoTypes = "SZJLTOUID";
-
-const tetrominoColors =[
-	"Cyan", "MediumBlue", "RebeccaPurple", 
-	"Yellow", "Red", "Orange", "Lime",
-]
-
 class Tetromino {
 	/** @param {String} color * @param {String} type * 
 	 * @param {Number} PosX * @param {Number} PosY */
@@ -201,15 +209,8 @@ class Tetromino {
 	}
 }
 
-let lastColor = -1;
 let lastTypes = [];
 function GenerateTetromino(x = 0, y = 0){    
-	//Select Colors
-	let color = lastColor;
-	while(color === lastColor) 
-		color = RandomValue(tetrominoColors.length); 
-	lastColor = color;
-
 	//Select Shape
 	let type = RandomValue(tetrominoTypes.length);
 	while(lastTypes.includes(type)) 
@@ -218,8 +219,9 @@ function GenerateTetromino(x = 0, y = 0){
 	if (lastTypes.length >= tetrominoTypes.length)
 		lastTypes = [];
 	
-	// Generate
-	const t = new Tetromino(tetrominoColors[color], tetrominoTypes[type], x, y);
+    // Generate
+    const typeLetter = tetrominoTypes[type];
+	const t = new Tetromino(tetrominoColors[typeLetter], typeLetter, x, y);
 	return t;
 }
 
@@ -334,7 +336,7 @@ function RandomValueMinMax(min, max){
 //#endregion
 
 
-// ---------------- GAMEPLAY ----------------
+//#region ---------------- GAMEPLAY ----------------
 
 // ---------------- INPUTS ----------------
 
@@ -679,7 +681,9 @@ function Rotate(dir) {
 		currentTetromino.Rotate(-dir);
 }
 
-// ---------------- EXE ----------------
+//#endregion Gameplay
+
+// ---------------- LOG ----------------
 
 function AreaLog() {
 	let arr = CreateArray2D(bound.x, bound.y);
