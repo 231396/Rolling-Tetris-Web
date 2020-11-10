@@ -347,7 +347,7 @@ inp.addInput('left', "a", "ArrowLeft", () => MoveX(-1));
 inp.addInput('rotateLeft', "q", "z", () => Rotate(-1));
 inp.addInput('rotateRight', "e", "x", () => Rotate(1));
 inp.addInput('start', "Enter", "Enter", () => Start());
-inp.addInput('pause', "p", "p", () => GamePause());
+inp.addInput('pause', "p", "p", () => InputPause());
 inp.addInput('surrender', "f", "f", () => EndGame());
 inp.addInput('surrender', "m", "m", () => Mute());
 
@@ -365,12 +365,19 @@ const linesHtml = document.getElementById("lines");
 /** @type {HTMLAudioElement} */
 const musicHtml = document.getElementById("music");
 const gameTextHtml = document.getElementById("game-text");
-const muteHtml = document.getElementById("mute-btn");
-muteHtml.onclick = Mute;
+
+const muteHtml = document.getElementById("btn-mute");
+muteHtml.onclick = () => Mute();
+
+const pauseHtml = document.getElementById("btn-pause");
+pauseHtml.onclick = () => InputPause();
+
+document.getElementById("btn-start").onclick = () => Start();
+document.getElementById("btn-reset").onclick = () => Reset();
 
 document.getElementById("btn-board-normal").onclick = () => SetArenaSize(10, 20);
 document.getElementById("btn-board-big").onclick = () => SetArenaSize(22, 44);
-document.getElementById("btn-game-start").onclick = () => Start();
+const sizeHtml = document.getElementById("btn-board-size");
 
 // ---------------- VARS ----------------
 const backgroundColor = "black";
@@ -389,6 +396,7 @@ var gameArea;
 var bound;
 
 var inGame;
+var readyStart;
 
 /** @type {Tetromino}  */
 var currentTetromino;
@@ -407,7 +415,7 @@ Update();
 
 function Mute(){
     musicHtml.muted = !musicHtml.muted;
-    muteHtml.innerHTML = musicHtml.muted ? "Mudo" : "Desmudo"
+    muteHtml.innerHTML = musicHtml.muted ? "Desmutar" : "Mutar";
 }
 
 function SetArenaSize(width, height){
@@ -415,6 +423,7 @@ function SetArenaSize(width, height){
     render.SetCanvasSize(width, height);
     gameArea = CreateArray2D(width, height);
     bound = new Vector2(width, height);
+    sizeHtml.innerHTML = `${width} x ${height}`;
     InitGameArea();
     Setup();
 }
@@ -435,14 +444,22 @@ function Setup() {
 	SetGameArea();
 	timer.Reset();
 	timerHtml.innerHTML = timer.ToString();
-	GamePause(true);
+    GamePause(true);
+    pauseHtml.innerHTML = "Pausar";
 	dropTime = 0;
 	score.Reset();
 	UpdateScore();
 	NewTetromino();
 	for (let x = 0; x < gameArea.length; x++)
 		for (let y = 0; y < gameArea[x].length; y++)
-			render.DrawPixelColor(gameArea[x][y].color, x, y);
+            render.DrawPixelColor(gameArea[x][y].color, x, y);
+    gameTextHtml.innerHTML = "Rolling Tetris";
+    readyStart = true;
+}
+
+function InputPause() {
+    if (inGame)
+        GamePause();
 }
 
 function GamePause(bool) {
@@ -451,23 +468,27 @@ function GamePause(bool) {
 		timer.Pause();
         musicHtml.pause();
         gameTextHtml.innerHTML = "Pausado";
+        pauseHtml.innerHTML = "Continuar";
 	}
 	else{
         timer.Resume();
 		musicHtml.play();
         gameTextHtml.innerHTML = "";
+        pauseHtml.innerHTML = "Pausar";
 	}
 }
 
 function Start(){
 	if (inGame) return;
-	console.clear();
-	Setup();
+    console.clear();
+    if (!readyStart)
+	    Setup();
 	GamePause(false);
 	musicHtml.currentTime = 0;
 	if (inverted < 0)
 		InvertTetris();
-	inGame = true;
+    inGame = true;
+    readyStart = false;
 }
 
 function Update(time = 0) {
@@ -499,6 +520,11 @@ function Update(time = 0) {
 	requestAnimationFrame(Update);
 }
 
+
+function Reset(){
+    EndGame();
+    Setup();
+}
 
 // ---------------- GAME RULE FUNC ----------------
 

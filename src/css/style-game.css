@@ -142,17 +142,13 @@ h2{
     border-radius: 15px;
     color: white;
 
+    top: 50%;
+    transform: translateY(-50%);
+
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 1;
-}
-
-#status-box{
-    top: 25%;
-    left: 5%;
-    width: 20%;
-    padding: 1.5% 0 2.5% 0;
 }
 
 .game-box div,
@@ -175,12 +171,17 @@ h2{
     font-size: 1.2em;
 }
 
+#status-box{
+    left: 5%;
+    width: 20%;
+    padding: 1.5% 0 2.5% 0;
+}
+
 .status-box-space{
     margin: 3% 0;
 }
 
-#size-game-box{
-    top: 27%;
+#menu-box{
     right: 5%;
     width: 20%;
     padding: 1.5% 0 2.5% 0;
@@ -208,7 +209,7 @@ h2{
     border: 1px solid black;
 }
 
-.game-size-btn{
+.game-status-btn{
     background-color: white;
     border-radius: 5px;
     border: 1px solid black;
@@ -216,7 +217,7 @@ h2{
     height: 2rem;
 }
 
-.game-size-btn:hover{
+.game-status-btn:hover{
     background-color: red;
 }
 
