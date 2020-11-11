@@ -37,10 +37,10 @@
         
         Sempre que o jogador eliminar uma linha na horizontal, ele receberá uma pontuação, 
         quanto mais linhas forem elimidadas de uma única vez, maior será a pontuação obtida.
-        <br/><span class="bold">Formula Pontos:</span> 20 * linhas elimidadas * linhas elimidadas;<br/><br/>
+        <br/><span class="bold">Formula Pontos:</span> 20 * linhas elimidadas * linhas elimidadas<br/><br/>
 
         A cada 300 pontos que o jogador realizar ele passará de nível, fazendo com que a velocidade do jogo aumente.
-        <br/><span class="bold">Formula Velocidade:</span> velocidade base - (nível * multiplicador de dificuldade)<br/>
+        <br/><span class="bold">Formula Velocidade:</span> 1000 - (nível * 100) ms, valor mínimo 60<br/>
 
         <h2>Aleatoriedade das Peças</h2>
         As peças não são escolhidas de forma completamente aleatorias. Funcionando da seguinte forma sempre que um tetrominós for selecionado, 
@@ -48,8 +48,6 @@
     
         
     </section>
-
-    <script src="../js/rules.js"></script>
 </body>
 
 </html>

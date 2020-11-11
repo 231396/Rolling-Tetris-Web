@@ -8,10 +8,9 @@ Color Pool
 S and Z shapes
 Pause Func
 Game Music
-
+Hard Drop
 
 -> Extra Func Ideias
 
 Hold Piece
-Hard Drop
 Make Sounds

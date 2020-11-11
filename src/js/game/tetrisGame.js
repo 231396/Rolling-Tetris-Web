@@ -348,10 +348,11 @@ inp.addInput('right', "d", "ArrowRight", () => MoveX(1));
 inp.addInput('left', "a", "ArrowLeft", () => MoveX(-1));
 inp.addInput('rotateLeft', "q", "z", () => Rotate(-1));
 inp.addInput('rotateRight', "e", "x", () => Rotate(1));
+inp.addInput('hardDrop', "f", "c", () => HardDrop());
 inp.addInput('start', "Enter", "Enter", () => Start());
-inp.addInput('pause', "p", "p", () => InputPause());
-inp.addInput('surrender', "f", "f", () => EndGame());
-inp.addInput('surrender', "m", "m", () => Mute());
+inp.addInput('pause', "p", null, () => InputPause());
+inp.addInput('surrender', "r", null, () => Reset());
+inp.addInput('mute', "m", null, () => Mute());
 
 //inp.addInput('inv', "k", "", () => InvertTetris());
 
@@ -407,10 +408,11 @@ var currentTetromino;
 var paused = true;
 
 var dropTime = 0;
-const initialDropDelay = 850;
+const initialDropDelay = 1000;
 const dropDelayMutipliyer = 100;
 var dropDelay = initialDropDelay;
 var lastTime = 0;
+var canHardDrop = true;
 
 SetArenaSize(10, 20);
 Update();
@@ -511,8 +513,9 @@ function Update(time = 0) {
 	timer.Run(deltaTime);
 	timerHtml.innerHTML = timer.ToString();
 	if (timer.time > dropTime) {
-		DropTetromino(1);
-		dropTime = timer.time + dropDelay;
+		DropTetromino();
+        dropTime = timer.time + dropDelay;
+        canHardDrop = true;
 	}
 	//Draw Area
 	for (let x = 0; x < gameArea.length; x++)
@@ -545,7 +548,7 @@ function UpdateScore() {
 	score.level = level;
 	levelHtml.innerHTML = score.level;
 
-	dropDelay = initialDropDelay - ((level-1) * dropDelayMutipliyer);
+	dropDelay = Math.max(initialDropDelay - ((level-1) * dropDelayMutipliyer), 60);
 
     //musicHtml.volume = Math.min(1, level/10);
 }
@@ -631,17 +634,24 @@ function PlaceTetromino() {
 		score.ScorePoints(rows);
 		UpdateScore();
 	}
-	AreaLog();
+	//AreaLog();
 	GameEnded();
 	NewTetromino();
 }
 
-function DropTetromino(dir) {
-	if (Collide(0, dir)) {
+function DropTetromino() {
+	if (Collide(0, 1))
 		PlaceTetromino();
-	}
 	else
-		currentTetromino.MoveY(dir);
+		currentTetromino.MoveY(1);
+}
+
+function HardDrop() {
+    if(!canHardDrop || paused) return;
+    while(!Collide(0, 1))
+        currentTetromino.MoveY(1);
+    PlaceTetromino();
+    canHardDrop = false;
 }
 
 function Collide(moveX = 0, moveY = 0) {
@@ -672,8 +682,8 @@ function MoveX(dir) {
 function MoveY(dir) {
 	if (paused) return;
 	
-	if (dir === inverted)
-		DropTetromino(Math.abs(dir));
+    if (dir === inverted)
+        DropTetromino();
 }
 
 function Rotate(dir) {
