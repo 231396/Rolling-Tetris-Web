@@ -366,6 +366,7 @@ const linesHtml = document.getElementById("lines");
 
 /** @type {HTMLAudioElement} */
 const musicHtml = document.getElementById("music");
+musicHtml.volume = .12;
 const gameTextHtml = document.getElementById("game-text");
 
 const muteHtml = document.getElementById("btn-mute");
@@ -546,7 +547,7 @@ function UpdateScore() {
 
 	dropDelay = initialDropDelay - ((level-1) * dropDelayMutipliyer);
 
-	musicHtml.volume = Math.min(1, level/10);
+    //musicHtml.volume = Math.min(1, level/10);
 }
 
 function NewTetromino() {
