@@ -97,7 +97,7 @@ class TetrisScore{
 		this.level = 0;
 	}
 	ScorePoints(rows){
-		this.score += (10 * rows) * rows;
+		this.score += (20 * rows) * rows;
 		this.lines += rows;
 	}
 	Reset(){
