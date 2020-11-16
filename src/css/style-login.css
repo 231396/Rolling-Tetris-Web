@@ -1,4 +1,5 @@
-*{
+* { 
+    border: 0;
     margin: 0;
     padding: 0;
     border: 0;
@@ -6,6 +7,9 @@
     color: black;
 }
 
+.msg-erro{
+    color: red;
+}
 body{
     font-size: 1em;
 }
