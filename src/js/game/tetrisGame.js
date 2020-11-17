@@ -1,10 +1,10 @@
-// ---------------- GAMERENDER ----------------
+//#region ---------------- GAMERENDER ----------------
+
 class RenderGame {    
 	/** @param {HTMLCanvasElement} canvas*/
-	constructor(canvas, width, height) {
+	constructor(canvas) {
 		this.canvas = canvas;
 		this.context = canvas.getContext('2d');
-		this.SetCanvasSize(width, height)
 	}
 	SetCanvasSize(width, height){
 		this.canvas.width = width;
@@ -32,9 +32,9 @@ class RenderGame {
 		this.context.fillRect(x, y, 1, 1);
 	}
 }
+//#endregion
 
-
-// ---------------- InputHandler ----------------
+//#region ---------------- InputHandler ----------------
 
 class Input
 {
@@ -86,54 +86,44 @@ class InputKey{
 		this.func();
 	}
 }
+//#endregion
 
-
-const inp = new Input();
-
-inp.addInput('up', "w", "ArrowUp", () => MoveY(-1));
-inp.addInput('down', "s", "ArrowDown", () => MoveY(1));
-inp.addInput('right', "d", "ArrowRight", () => MoveX(1));
-inp.addInput('left', "a", "ArrowLeft", () => MoveX(-1));
-inp.addInput('rotateLeft', "q", "z", () => Rotate(-1));
-inp.addInput('rotateRight', "e", "x", () => Rotate(1));
-inp.addInput('pause', "p", "p", () => GamePause());
-inp.addInput('restart', "r", "r", () => Restart());
-
-//inp.addInput('inv', "k", "", () => InvertTetris());
-// inp.addInput('down', "j", "", () => down());
-// function up(){
-//     score.score += 100;
-//     UpdateScore();
-// }
-// function down(){
-//     score.score -= 100;
-//     UpdateScore();
-// }
-
-
-// ---------------- tetromino ----------------
-
-// const tetrominoEnum= {
-// 	top: 0,
-// 	right: 1,
-// 	bottom: 2,
-// 	left: 3
-// }
+//#region ---------------- Tetromino ----------------
 
 class TetrisScore{
 	constructor(){
 		this.score = 0;
+		this.lines = 0;
+		this.level = 0;
 	}
 	ScorePoints(rows){
-		this.score += (10 * rows) * rows;
+		this.score += (20 * rows) * rows;
+		this.lines += rows;
 	}
 	Reset(){
+		this.level = 0;
 		this.score = 0;
+		this.lines = 0;
 	}
 }
 
+const tetrominoTypes = "SZJLTOUID";
+
+const tetrominoColors = {
+	S: "Lime",
+	Z: "Red",
+	J: "RoyalBlue",
+	L: "Orange",
+	T: "RebeccaPurple",
+	O: "Yellow",
+	U: "Orchid",
+	I: "Cyan",
+	D: "Gray",
+}
+
+
 const tetrominoShapes = {
-	S: 	
+	S:
 	[
 		[0,1,1],
 		[1,1,0],
@@ -184,13 +174,6 @@ const tetrominoShapes = {
 	D: [ [1] ], //Dot
 }
 
-const tetrominoTypes = "SZJLTOUID";
-
-const tetrominoColors =[
-	"Cyan", "MediumBlue", "RebeccaPurple", 
-	"Yellow", "Red", "Orange", "Lime",
-]
-
 class Tetromino {
 	/** @param {String} color * @param {String} type * 
 	 * @param {Number} PosX * @param {Number} PosY */
@@ -226,15 +209,8 @@ class Tetromino {
 	}
 }
 
-let lastColor = -1;
 let lastTypes = [];
 function GenerateTetromino(x = 0, y = 0){    
-	//Select Colors
-	let color = lastColor;
-	while(color === lastColor) 
-		color = RandomValue(tetrominoColors.length); 
-	lastColor = color;
-
 	//Select Shape
 	let type = RandomValue(tetrominoTypes.length);
 	while(lastTypes.includes(type)) 
@@ -243,8 +219,9 @@ function GenerateTetromino(x = 0, y = 0){
 	if (lastTypes.length >= tetrominoTypes.length)
 		lastTypes = [];
 	
-	// Generate
-	const t = new Tetromino(tetrominoColors[color], tetrominoTypes[type], x, y);
+    // Generate
+    const typeLetter = tetrominoTypes[type];
+	const t = new Tetromino(tetrominoColors[typeLetter], typeLetter, x, y);
 	return t;
 }
 
@@ -278,9 +255,9 @@ class Block{
 		this.filled = false;
 	}
 }
+//#endregion 
 
-
-// ---------------- util ----------------
+//#region ---------------- Util ----------------
 
 class Vector2 {
 	/** @param {number} x @param {number} y*/
@@ -356,43 +333,105 @@ function RandomValueMinMax(min, max){
 	return Math.floor(Math.random() * (max - min) + min);
 }
 
+//#endregion
 
-// ---------------- GAMEPLAY ----------------
 
+//#region ---------------- GAMEPLAY ----------------
 
+// ---------------- INPUTS ----------------
+
+const inp = new Input();
+
+inp.addInput('up', "w", "ArrowUp", () => MoveY(-1));
+inp.addInput('down', "s", "ArrowDown", () => MoveY(1));
+inp.addInput('right', "d", "ArrowRight", () => MoveX(1));
+inp.addInput('left', "a", "ArrowLeft", () => MoveX(-1));
+inp.addInput('rotateLeft', "q", "z", () => Rotate(-1));
+inp.addInput('rotateRight', "e", "x", () => Rotate(1));
+inp.addInput('hardDrop', "f", "c", () => HardDrop());
+inp.addInput('start', "Enter", "Enter", () => Start());
+inp.addInput('pause', "p", null, () => InputPause());
+inp.addInput('surrender', "r", null, () => Reset());
+inp.addInput('mute', "m", null, () => Mute());
+
+//inp.addInput('inv', "k", "", () => InvertTetris());
 
 // ---------------- HTML ELEMENTS ----------------
 
 const canvas = document.getElementById("tetris-canvas");
 
 const timerHtml = document.getElementById("timer");
-
 const scoreHtml = document.getElementById("score");
+const levelHtml = document.getElementById("level");
+const linesHtml = document.getElementById("lines");
 
 /** @type {HTMLAudioElement} */
 const musicHtml = document.getElementById("music");
+musicHtml.volume = .12;
+const gameTextHtml = document.getElementById("game-text");
 
-// ---------------- EVENTS ----------------
+const muteHtml = document.getElementById("btn-mute");
+muteHtml.onclick = () => Mute();
 
+const pauseHtml = document.getElementById("btn-pause");
+pauseHtml.onclick = () => InputPause();
 
+document.getElementById("btn-start").onclick = () => Start();
+document.getElementById("btn-reset").onclick = () => Reset();
+
+document.getElementById("btn-board-normal").onclick = () => SetArenaSize(10, 20);
+document.getElementById("btn-board-big").onclick = () => SetArenaSize(22, 44);
+const sizeHtml = document.getElementById("btn-board-size");
 
 // ---------------- VARS ----------------
 const backgroundColor = "black";
-// 12 20
-const bound = new Vector2(12, 20);
 
-const render = new RenderGame(canvas, bound.x, bound.y);
-render.SetCanvasStyleSize(Math.min(bound.x * 20, 1200), Math.min(bound.y * 20, 1200 * .6));
+const render = new RenderGame(canvas);
+// render.SetCanvasStyleSize(Math.min(bound.x * 20, 1200), Math.min(bound.y * 20, 1200 * .6));
 
 const timer = new SimpleTimer();
 
 const score = new TetrisScore();
 
 /** @type {Block[][]} */
-const gameArea = CreateArray2D(bound.x, bound.y);
-InitGameArea();
+var gameArea;
 
+/** @type {Vector2} */
+var bound;
+
+var inGame;
+var readyStart;
+
+/** @type {Tetromino}  */
+var currentTetromino;
+
+var paused = true;
+
+var dropTime = 0;
+const initialDropDelay = 1000;
+const dropDelayMutipliyer = 100;
+var dropDelay = initialDropDelay;
+var lastTime = 0;
+var canHardDrop = true;
+
+SetArenaSize(10, 20);
+Update();
 // ---------------- BASIC GAME FUNCS ----------------
+
+function Mute(){
+    musicHtml.muted = !musicHtml.muted;
+    muteHtml.innerHTML = musicHtml.muted ? "Desmutar" : "Mutar";
+}
+
+function SetArenaSize(width, height){
+    if (inGame) return;
+    render.SetCanvasSize(width, height);
+    gameArea = CreateArray2D(width, height);
+    bound = new Vector2(width, height);
+    sizeHtml.innerHTML = `${width} x ${height}`;
+    InitGameArea();
+    Setup();
+}
 
 function InitGameArea() {
 	for (let x = 0; x < gameArea.length; x++)
@@ -410,58 +449,73 @@ function Setup() {
 	SetGameArea();
 	timer.Reset();
 	timerHtml.innerHTML = timer.ToString();
-	GamePause(true);
+    GamePause(true);
+    pauseHtml.innerHTML = "Pausar";
 	dropTime = 0;
 	score.Reset();
 	UpdateScore();
 	NewTetromino();
+	for (let x = 0; x < gameArea.length; x++)
+		for (let y = 0; y < gameArea[x].length; y++)
+            render.DrawPixelColor(gameArea[x][y].color, x, y);
+    gameTextHtml.innerHTML = "Rolling Tetris";
+    readyStart = true;
+}
+
+function InputPause() {
+    if (inGame)
+        GamePause();
 }
 
 function GamePause(bool) {
 	paused = bool || !paused;
 	if(paused){
 		timer.Pause();
-		musicHtml.pause();
+        musicHtml.pause();
+        gameTextHtml.innerHTML = "Pausado";
+        pauseHtml.innerHTML = "Continuar";
 	}
 	else{
-		timer.Resume();
+        timer.Resume();
 		musicHtml.play();
+        gameTextHtml.innerHTML = "";
+        pauseHtml.innerHTML = "Pausar";
 	}
 }
 
-function Restart() {
-	console.clear();
-	Setup();
+function Start(){
+	if (inGame) return;
+    console.clear();
+    if (!readyStart)
+	    Setup();
 	GamePause(false);
 	musicHtml.currentTime = 0;
 	if (inverted < 0)
 		InvertTetris();
+    inGame = true;
+    readyStart = false;
 }
 
-/** @type {Tetromino}  */
-var currentTetromino;
+function Reset(){
+    EndGame();
+    Setup();
+}
 
-var paused = true;
-
-var dropTime = 0;
-const dropDelayLevels = [800, 700, 600, 500, 400, 300, 250, 200];
-var dropDelay = dropDelayLevels[0];
-
-var lastTime = 0;
 function Update(time = 0) {
-	if (paused) {
+    const deltaTime = time - lastTime;
+    lastTime = time;
+
+	if (paused || !inGame) {
 		requestAnimationFrame(Update);
 		return;
 	}
 
-	const deltaTime = time - lastTime;
-	lastTime = time;
-
 	timer.Run(deltaTime);
 	timerHtml.innerHTML = timer.ToString();
 	if (timer.time > dropTime) {
-		DropTetromino(1);
-		dropTime = timer.time + dropDelay;
+		DropTetromino();
+        dropTime = timer.time + dropDelay;
+        canHardDrop = true;
 	}
 	//Draw Area
 	for (let x = 0; x < gameArea.length; x++)
@@ -477,7 +531,6 @@ function Update(time = 0) {
 	requestAnimationFrame(Update);
 }
 
-
 // ---------------- GAME RULE FUNC ----------------
 
 var inverted = 1;
@@ -489,9 +542,15 @@ function InvertTetris() {
 function UpdateScore() {
 	const currentScore = score.score;
 	scoreHtml.innerHTML = currentScore;
-	let speed = Math.floor(Math.min(currentScore/300, dropDelayLevels.length-1));
-	dropDelay = dropDelayLevels[speed];
-	musicHtml.volume = (speed+1) / (dropDelayLevels.length);
+	linesHtml.innerHTML = score.lines;
+	
+	let level = 1 + Math.floor(currentScore/300);
+	score.level = level;
+	levelHtml.innerHTML = score.level;
+
+	dropDelay = Math.max(initialDropDelay - ((level-1) * dropDelayMutipliyer), 60);
+
+    //musicHtml.volume = Math.min(1, level/10);
 }
 
 function NewTetromino() {
@@ -515,16 +574,19 @@ function TetrominoToGameArea() {
 			}
 }
 
-function EndGame() {
+function GameEnded() {
 	for (let x = 0; x < gameArea.length; x++)
 		if (gameArea[x][0].filled === true) {
-			//LOSE CODE
-			// TODO --> SEND DATA
-			console.log("Game Ended");
-			Setup();
-			//LOSE CODE
-			break;
+			EndGame();
+			return;
 		}
+}
+
+function EndGame(){
+	console.log("Game Ended");
+    GamePause(true);
+    gameTextHtml.innerHTML = "Game Over";
+	inGame = false;
 }
 
 function SweepRows() {
@@ -572,19 +634,24 @@ function PlaceTetromino() {
 		score.ScorePoints(rows);
 		UpdateScore();
 	}
-	AreaLog();
-	EndGame();
+	//AreaLog();
+	GameEnded();
 	NewTetromino();
 }
 
-// function HardDrop(){}
-
-function DropTetromino(dir) {
-	if (Collide(0, dir)) {
+function DropTetromino() {
+	if (Collide(0, 1))
 		PlaceTetromino();
-	}
 	else
-		currentTetromino.MoveY(dir);
+		currentTetromino.MoveY(1);
+}
+
+function HardDrop() {
+    if(!canHardDrop || paused) return;
+    while(!Collide(0, 1))
+        currentTetromino.MoveY(1);
+    PlaceTetromino();
+    canHardDrop = false;
 }
 
 function Collide(moveX = 0, moveY = 0) {
@@ -615,8 +682,8 @@ function MoveX(dir) {
 function MoveY(dir) {
 	if (paused) return;
 	
-	if (dir === inverted)
-		DropTetromino(Math.abs(dir));
+    if (dir === inverted)
+        DropTetromino();
 }
 
 function Rotate(dir) {
@@ -625,10 +692,9 @@ function Rotate(dir) {
 		currentTetromino.Rotate(-dir);
 }
 
-// ---------------- EXE ----------------
+//#endregion Gameplay
 
-Setup();
-Update();
+// ---------------- LOG ----------------
 
 function AreaLog() {
 	let arr = CreateArray2D(bound.x, bound.y);

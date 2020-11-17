@@ -1,0 +1,16 @@
+
+
+-> Extra Funcs Done:
+
+Alternatives Keys
+Tetris Shape Pool
+Color Pool
+S and Z shapes
+Pause Func
+Game Music
+Hard Drop
+
+-> Extra Func Ideias
+
+Hold Piece
+Make Sounds
