@@ -583,7 +583,8 @@ function GameEnded() {
 }
 
 function EndGame(){
-	console.log("Game Ended");
+    //console.log("Game Ended");
+    SendTry();
     GamePause(true);
     gameTextHtml.innerHTML = "Game Over";
 	inGame = false;
@@ -705,3 +706,53 @@ function AreaLog() {
 	//arr = arr[0].map((_, col) => arr.map(row => row[col]));
 	console.table(arr);
 }
+
+// ---------------- TABLE & DATABASE ----------------
+
+//TODO get from logged player
+var username = "Tester"; 
+
+const usernameHtml = document.getElementById("user-name");
+usernameHtml.innerHTML = username;
+
+const tableHtml = document.getElementById("player-table"); 
+
+function SendTry(){   
+    var tryScore = score.score;
+    var tryLevel = score.level;
+    var tryTimer = timer.ToString();
+    
+    AddToTable(tryScore, tryLevel, tryTimer);
+    SendTryData(tryScore, tryLevel, tryTimer);
+}
+
+function SendTryData(){
+    //TODO - Send try data to php
+}
+
+function GetTrysData(){
+    //TODO - get trys from php
+}
+
+var tableFirst;
+function AddToTable(playScore, playLevel, playDuration)
+{
+    newTr = document.createElement("tr");
+    
+    const scoreTd = document.createElement("td");
+    scoreTd.innerHTML = playScore;
+    const levelTd = document.createElement("td");
+    levelTd.innerHTML = playLevel;
+    const durationTd = document.createElement("td");
+    durationTd.innerHTML = playDuration;
+    
+    newTr.appendChild(scoreTd);
+    newTr.appendChild(levelTd);
+    newTr.appendChild(durationTd);
+    
+    tableHtml.insertBefore(newTr, tableFirst);
+    tableFirst = newTr;
+}
+
+
+//TODO - KEEP PLAYER LOGGED
