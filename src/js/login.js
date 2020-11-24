@@ -1,37 +1,49 @@
+const caixa_login = document.querySelector('.msg-login');
+const caixa_passw = document.querySelector('.msg-passw');
+const input_login = document.querySelector('.input-login');
+const input_password = document.querySelector('.input-password');
 
-function username(){
-    var validaForm = true;
+/** @type {HTMLFormElement} */
+const form_login = document.querySelector('#form_login');
+form_login.onsubmit = submit;
+
+var isValidLogin = true;
+
+function submit(event){
+    event.preventDefault();
+
 	var username = form_login.login.value;
-	var password = form_login.password.value;
+    var password = form_login.password.value;    
     
-    var caixa_login = document.querySelector('.msg-login');
-	var caixa_passw = document.querySelector('.msg-passw');
-	var input_login = document.querySelector('.input-login');
-	var input_password = document.querySelector('.input-password');
+    if (verify() && canLogin(username, password)){
+        localStorage.setItem("login", username);
+        localStorage.setItem("password", password);    
+        window.location.href = "./game.html";
+    }
 
-/* 	if(username == ""){
-		caixa_login.innerHTML = "O campo username não pode esta vazio";
-		caixa_login.style.display = "block";
-		caixa_login.style.borderColor = "red";
-		validaForm = false;
-	}
-	else{
-		caixa_login.innerHTML = "";
-		caixa_login.style.borderColor = "";
+}
 
-	} */
+function canLogin(login, password){
+    //TODO - REQUEST PHP
+    return true;
+}
+
+
+function verify(){
+	var username = form_login.login.value;
+	var password = form_login.password.value;    
+
 	if(username.length <= 6){
 		caixa_login.innerHTML = "O campo username precisa de mais que 6 caracteres";
 		caixa_login.style.display = "block";
 		caixa_login.style.borderColor = "red";
 		input_login.style.borderColor = "red";
-		validaForm = false;
+		isValidLogin = false;
 	}
     else{
     	caixa_login.innerHTML = "";
 		caixa_login.style.borderColor = "";
 		input_login.style.borderColor = "";
-
 	}
 
 	if(username.length >16){
@@ -39,21 +51,15 @@ function username(){
 		caixa_login.style.display = "block";
 		caixa_login.style.borderColor = "red";
 		input_login.style.borderColor = "red";
-		validaForm = false;
+		isValidLogin = false;
 	}
 
-
-/* 	if(password  == ""){
-		caixa_passw.innerHTML = "O campo password não pode esta vazio";
-		caixa_passw.style.display = "block";
-		validaForm = false;
-	} */
 	if(password.length <= 6){
 		caixa_passw.innerHTML = "O campo password precisa de mais que 6 caracteres";
 		caixa_passw.style.display = "block";
 		caixa_passw.style.borderColor = "red";
 		input_password.style.borderColor = "red";
-		validaForm = false;
+		isValidLogin = false;
 	}else{
 
     	caixa_passw.innerHTML = "";
@@ -66,14 +72,8 @@ function username(){
 		caixa_passw.style.display = "block";
 		caixa_passw.style.borderColor = "red";
 		input_password.style.borderColor = "red";
-		validaForm = false;
-	}
+		isValidLogin = false;
+    }    
 
-	return validaForm;
-
-
-}
-
-function toLimit(string = ""){
-	string.value = string.value.substring(0,10);
+    return isValidLogin;
 }

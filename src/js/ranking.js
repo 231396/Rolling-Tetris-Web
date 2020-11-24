@@ -15,11 +15,6 @@ const playersHtml = [
 
 const currentPlayerHtml = document.getElementById("best-player");
 
-function FillTable(){
-    //TODO - get top 10 requests form php
-    //TODO - get player best run and ranking
-}
-
 function SetCurrentPlayerBest(username, score, level, duration){
     const fields = currentPlayerHtml.getElementsByTagName("td");
     fields[1].innerHTML = username;
@@ -37,4 +32,15 @@ function AlterTable(index, username, score, level, duration)
     fields[4].innerHTML = duration;
 }
 
-//TODO - KEEP PLAYER LOGGED
+GetPlayerData();
+function GetDatabaseData(){
+    var login = localStorage.getItem("login");
+    var password = localStorage.getItem("password");
+
+    //TODO - REQUEST PLAYER DATA FROM PHP    
+}
+
+function SetScores(){
+    //TODO - get top 10 requests form php
+    //TODO - get player best run and ranking
+}

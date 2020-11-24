@@ -695,7 +695,7 @@ function Rotate(dir) {
 
 //#endregion Gameplay
 
-// ---------------- LOG ----------------
+//#region ---------------- LOG ----------------
 
 function AreaLog() {
 	let arr = CreateArray2D(bound.x, bound.y);
@@ -707,15 +707,33 @@ function AreaLog() {
 	console.table(arr);
 }
 
-// ---------------- TABLE & DATABASE ----------------
+//#endregion
 
-//TODO get from logged player
-var username = "Tester"; 
+//#region ---------------- TABLE & DATABASE ----------------
+
 
 const usernameHtml = document.getElementById("user-name");
-usernameHtml.innerHTML = username;
 
 const tableHtml = document.getElementById("player-table"); 
+
+GetDatabaseData();
+function GetDatabaseData(){
+    var login = localStorage.getItem("login");
+    var password = localStorage.getItem("password");
+
+    console.log(localStorage.getItem("login"));
+    console.log(localStorage.getItem("password"));
+    
+    //TODO - REQUEST DATA FROM PHP
+
+    var username = "Player";
+    usernameHtml.innerHTML = username;
+}
+
+function logOut(){
+    localStorage.removeItem("login");
+    localStorage.removeItem("password");
+}
 
 function SendTry(){   
     var tryScore = score.score;
@@ -753,6 +771,3 @@ function AddToTable(playScore, playLevel, playDuration)
     tableHtml.insertBefore(newTr, tableFirst);
     tableFirst = newTr;
 }
-
-
-//TODO - KEEP PLAYER LOGGED
