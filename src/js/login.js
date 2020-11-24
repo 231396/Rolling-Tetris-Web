@@ -7,8 +7,6 @@ const input_password = document.querySelector('.input-password');
 const form_login = document.querySelector('#form_login');
 form_login.onsubmit = submit;
 
-var isValidLogin = true;
-
 function submit(event){
     event.preventDefault();
 
@@ -28,10 +26,11 @@ function canLogin(login, password){
     return true;
 }
 
-
 function verify(){
 	var username = form_login.login.value;
-	var password = form_login.password.value;    
+    var password = form_login.password.value;    
+    
+    var isValidLogin = true;
 
 	if(username.length <= 6){
 		caixa_login.innerHTML = "O campo username precisa de mais que 6 caracteres";
