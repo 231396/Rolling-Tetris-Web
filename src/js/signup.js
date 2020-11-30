@@ -1,12 +1,12 @@
 function validateForm()
 {
-	var nome = document.forms["singup_form"]["name"].value;
-	var datanascimento = document.forms["singup_form"]["datebirth"].value;
-	var cpf = document.forms["singup_form"]["cpf"].value;
-	var telefone = document.forms["singup_form"]["phone"].value;
-	var email = document.forms["singup_form"]["email"].value;
-	var username = document.forms["singup_form"]["username"].value;
-	var senha = document.forms["singup_form"]["password"].value;
+	var nome = document.forms["signup_form"]["name"].value;
+	var datanascimento = document.forms["signup_form"]["datebirth"].value;
+	var cpf = document.forms["signup_form"]["cpf"].value;
+	var telefone = document.forms["signup_form"]["phone"].value;
+	var email = document.forms["signup_form"]["email"].value;
+	var username = document.forms["signup_form"]["username"].value;
+	var senha = document.forms["signup_form"]["password"].value;
 
 
 
