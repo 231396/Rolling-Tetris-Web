@@ -771,3 +771,5 @@ function AddToTable(playScore, playLevel, playDuration)
     tableHtml.insertBefore(newTr, tableFirst);
     tableFirst = newTr;
 }
+
+//#endregion
