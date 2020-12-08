@@ -40,5 +40,9 @@ INSERT INTO GameMatch Values (4, 4, 5000, 3, '00:05:00')
 INSERT INTO GameMatch Values (5, 10, 7000, 5, '00:06:00')
 INSERT INTO GameMatch Values (6, 10, 3000, 4, '00:07:00')
 
-SELECT * FROM Player
-SELECT * FROM GameMatch
+CREATE VIEW PlayersRanks AS
+SELECT * 
+FROM Player p INNER JOIN GameMatch gm 
+ON p.id = gm.idPlayer
+ORDER BY gm.score DESC
+go
