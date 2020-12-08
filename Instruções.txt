@@ -1,0 +1,11 @@
+1 - Baixe e instale XAMPP (https://www.apachefriends.org/pt_br/index.html).
+
+2 - Execute o arquivo "xampp-control.exe", presente no local em que instalou o XAMPP.
+
+3 - Click em "Start" nos módulos Apache e MySQL.
+
+4 - Coloque a pasta "ProjetoG7" dentro da pasta "htdocs", presente no local em que instalou o XAMPP.
+
+5- //TODO - CREATE TABLES
+
+6 - Abra o navegador e digite o seguinte endereço sem as aspas "localhost/ProjetoG7/login.php".
