@@ -14,5 +14,5 @@
        }
     }
 
-    $database = new Database();
+    $_Database = new Database();
 ?>

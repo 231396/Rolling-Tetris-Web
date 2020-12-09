@@ -26,35 +26,40 @@
 
             <?php
                 require "../php/database.php";
-
-                session_start();
+                require "../php/is_logged_in.php";
 
                 try{                                
-                    $conn = $database->new_PDO();
+                    $conn = $_Database->new_PDO();
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
                     $query = $conn->query("SELECT * FROM players_ranks");
                     
                     $i = 0;
                     while($row = $query->fetch(PDO::FETCH_ASSOC)) {
-                        td_row($row);
+                        echo td_row($row);
                         if($i++ >= 10)
                             break;
                     }                       
 
-                    $id = 2; // TODO GET FROM LOGIN
-                    $query = $conn->query("SELECT * FROM players_ranks pk WHERE pk.id = $id");
-                    $currentRow = $query->fetch(PDO::FETCH_ASSOC);
-                    
-                    echo '<tfoot>';
-                        td_row($currentRow);
-                    echo '</tfoot>';
+                    if ($isLogged){                        
+                        $id = intval($_SESSION['id']);
+                        $query = $conn->query("SELECT * FROM players_ranks pk WHERE pk.id = $id");
+                        $currentRow = $query->fetch(PDO::FETCH_ASSOC);                    
+                        // print_r($currentRow);
+                        if (isset($currentRow['id'])){
+                            echo add_tag('tfoot', td_row($currentRow));
+                        }
+                    }
 
                     $conn = null;
                 }
                 catch(PDOException $e){
                     echo "Connection failed: " . $e->getMessage();
                 }
+                catch(Exception $e){
+                    echo "Error: " . $e->getMessage();
+                }
+
 
                 function add_tag($tag, $str){
                     return "<$tag>" . $str . "</$tag>";
@@ -62,13 +67,13 @@
 
                 function td_row($row)
                 {
-                    echo '<tr>';
-                    echo add_tag('td', $row["position"] . 'º');
-                    echo add_tag('td', $row["username"]);
-                    echo add_tag('td', $row["score"] );
-                    echo add_tag('td', $row["level"]);
-                    echo add_tag('td', $row["duration"]);
-                    echo '</tr>';
+                    return add_tag('tr',
+                        add_tag('td', $row["position"] . 'º') .
+                        add_tag('td', $row["username"]) .
+                        add_tag('td', $row["score"] ) .
+                        add_tag('td', $row["level"]) .
+                        add_tag('td', $row["duration"])
+                    );
                 }
 
             ?>

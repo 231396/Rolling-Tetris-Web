@@ -1,3 +1,10 @@
+<?php
+    session_start();
+
+
+    echo $_GET['']
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -21,7 +28,6 @@
             <span style="color: #C01FBA">S</span>
         </h2>    
 
-
         <form class="formulario" id="form_login">
 
             <label>Username</label>
@@ -31,13 +37,13 @@
             <div style="margin-bottom: 10%;"></div>
             
             <label>Senha</label>
-            <input class="input-password" type="password" name="password"  maxlength="16" >
+            <input class="input-password" type="password" name="password" maxlength="16" >
             <span class="msg-erro msg-passw"></span>
             
             <div style="margin-bottom: 10%;"></div>
             <div id="btn-holder">
                 <input class="btn" type="submit" value="Logar">
-                <a href="signup.html" class="btn">Cadastrar</a>
+                <a href="signup.php" class="btn">Cadastrar</a>
             </div>
         </form>
     </div>

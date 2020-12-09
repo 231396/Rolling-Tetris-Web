@@ -14,9 +14,17 @@ function submit(event){
     var password = form_login.password.value;    
     
     if (verify() && canLogin(username, password)){
-        localStorage.setItem("login", username);
-        localStorage.setItem("password", password);    
-        window.location.href = "./game.html";
+
+        var myRequest = new XMLHttpRequest();
+        myRequest.open("GET", `login.php?login=${username}&password=${password}`, true);
+        // http.onreadystatechange = () => {
+        //     if(http.readyState == 4 && http.status == 200) {
+        //         alert(http.responseText);
+        //     }
+        // }
+        http.send(null);
+
+        //window.location.href = "./game.php";
     }
 
 }

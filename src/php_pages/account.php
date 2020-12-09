@@ -1,3 +1,9 @@
+<?php
+    require "../php/is_logged_in.php";
+    if (!$isLogged)
+        header("Location: login.php");
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -36,7 +42,7 @@
             
             <div id="btn-holder">
                 <input type="submit" value="Salvar" class="btn btn-primary">
-                <a href="game.html" class="btn btn-primary">Voltar</a>
+                <a href="game.php" class="btn btn-primary">Voltar</a>
             </div>
         </form>
     </div>	

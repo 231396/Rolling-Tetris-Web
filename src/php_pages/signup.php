@@ -27,7 +27,7 @@
         <label>Senha</label>
         <input type="text" name="password" placeholder="Sua senha">
         <input type="submit" value="Cadastrar">
-        <p><a href="login.html">Já estou cadastrado</a></p>
+        <p><a href="login.php">Já estou cadastrado</a></p>
     </form>
 
     <script src="../js/signup.js"></script>

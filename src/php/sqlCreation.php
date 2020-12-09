@@ -2,15 +2,15 @@
     require "../php/database.php";
 
     try{
-        $conn = $database->new_mysqli();
-        $conn->query("DROP DATABASE $database->dbName");
+        $conn = $_Database->new_mysqli();
+        $conn->query("DROP DATABASE $_Database->dbName");
 
-        if ($conn->query("CREATE DATABASE $database->dbName") === FALSE){
+        if ($conn->query("CREATE DATABASE $_Database->dbName") === FALSE){
             "Error ao criar database - " . $conn->error;
             return;
         }
 
-        $conn = $database->new_PDO();
+        $conn = $_Database->new_PDO();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $sql[] = '
@@ -46,6 +46,11 @@
             ON gm.idPlayer = groupedgm.idPlayer 
             AND gm.score = groupedgm.maxScore
             INNER JOIN player p ON p.id = gm.idPlayer';
+
+        $sql[] = '
+            CREATE VIEW players_logins AS
+            SELECT p.id, p.username, p.password
+            FROM player p';
         
         for ($i=0; $i < count($sql); $i++)
             $temp = $conn->exec($sql[$i]);
