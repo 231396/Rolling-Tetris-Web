@@ -2,10 +2,10 @@
 
 2 - Execute o arquivo "xampp-control.exe", presente no local em que instalou o XAMPP.
 
-3 - Click em "Start" nos mÛdulos Apache e MySQL.
+3 - Click em "Start" nos modulos Apache e MySQL.
 
-4 - Coloque a pasta "ProjetoG7" dentro da pasta "htdocs", presente no local em que instalou o XAMPP.
+4 - Coloque a pasta "Rolling-Tetris-Web" dentro da pasta "htdocs", presente no local em que instalou o XAMPP.
 
-5- //TODO - CREATE TABLES
+5- Abra o navegador e digite o seguinte endereco sem as aspas "localhost/Rolling-Tetris-Web/src/php/sqlCreationg.php". Isso ir√° criar as tabelas, caso tudo ocorra certo uma mensagem ser√° mostrada, apos ver a mensagem feche a p√°gina.
 
-6 - Abra o navegador e digite o seguinte endereÁo sem as aspas "localhost/ProjetoG7/login.php".
+6 - Abra o navegador e digite o seguinte endereco sem as aspas "localhost/Rolling-Tetris-Web/src/php/login.php".
