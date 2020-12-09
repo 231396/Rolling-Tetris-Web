@@ -38,10 +38,10 @@
         </div>
 
         <div id="header">
-            <a class="link-btn" href="account.html" target="popup" onclick="window.open('rules.html','popup','width=400,height=400,scrollbars=no'); return false;">Regras do Jogo</a>
-            <a class="link-btn" href="ranking.html">Ranking Global</a>
-            <a class="link-btn" href="account.html">Configurar Conta</a>
-            <a class="link-btn" href="login.html" onclick="LogOut()">Log Out</a>
+            <a class="link-btn" target="popup" onclick="window.open('../html/rules.html','popup','width=400,height=400,scrollbars=no'); return false;">Regras do Jogo</a>
+            <a class="link-btn" href="ranking.php">Ranking Global</a>
+            <a class="link-btn" href="account.php">Configurar Conta</a>
+            <a class="link-btn" href="login.php" onclick="LogOut()">Log Out</a>
         </div>
 
         <div id="center-content">
@@ -106,6 +106,10 @@
                         <th>Nível</th>
                         <th>Duração</th>
                     </tr>
+                    <?php
+                        //TODO - GET OLD TRYS
+                    ?>
+
                 </table>
             </div>
         </div>

@@ -11,7 +11,7 @@
 
 <body>
 	<header>
-        <a class="link-btn" href="game.html">Voltar ao Jogo</a>
+        <a class="link-btn" href="game.php">Voltar ao Jogo</a>
     </header>
 
     <div>
@@ -25,11 +25,12 @@
             </tr>
 
             <?php
+                require "../php/database.php";
+
                 session_start();
 
                 try{                                
-                    $db = 'mysql:host=' . $_SESSION['dbServerName'] . ';dbname=' . $_SESSION['dbName'];
-                    $conn = new PDO($db, $_SESSION['dbUsername'], $_SESSION['dbPassword']);
+                    $conn = $database->new_PDO();
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
                     $query = $conn->query("SELECT * FROM players_ranks");
@@ -62,7 +63,7 @@
                 function td_row($row)
                 {
                     echo '<tr>';
-                    echo add_tag('td', $row["ROW_NUMBER"] . 'º');
+                    echo add_tag('td', $row["position"] . 'º');
                     echo add_tag('td', $row["username"]);
                     echo add_tag('td', $row["score"] );
                     echo add_tag('td', $row["level"]);
@@ -75,7 +76,6 @@
         </table>
     </div>
 
-    <script src="../js/ranking.js"></script>
 </body>
 
 </html>

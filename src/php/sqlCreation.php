@@ -1,27 +1,16 @@
 <?php
-
-    $dbServerName = "localhost";
-    $dbUsername = "root";
-    $dbPassword = "";
-    $dbName = "rt";
-
-    session_start();
-
-    $_SESSION['dbServerName'] = $dbServerName;
-    $_SESSION['dbUsername'] = $dbUsername;
-    $_SESSION['dbPassword'] = $dbPassword;
-    $_SESSION['dbName'] = $dbName;
+    require "../php/database.php";
 
     try{
-        $conn = new mysqli($dbServerName, $dbUsername, $dbPassword);
-        $conn->query("DROP DATABASE $dbName");
+        $conn = $database->new_mysqli();
+        $conn->query("DROP DATABASE $database->dbName");
 
-        if ($conn->query("CREATE DATABASE $dbName") === FALSE){
+        if ($conn->query("CREATE DATABASE $database->dbName") === FALSE){
             "Error ao criar database - " . $conn->error;
             return;
         }
 
-        $conn = new PDO("mysql:host=$dbServerName;dbname=$dbName", $dbUsername, $dbPassword);
+        $conn = $database->new_PDO();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         $sql[] = '
@@ -48,7 +37,7 @@
 
         $sql[] = '
             CREATE VIEW players_ranks AS
-            SELECT p.id, p.username, gm.score, gm.level, gm.duration, ROW_NUMBER() OVER (ORDER BY gm.score DESC) as ROW_NUMBER
+            SELECT p.id, p.username, gm.score, gm.level, gm.duration, ROW_NUMBER() OVER (ORDER BY gm.score DESC) position
             FROM game_match gm
             INNER JOIN
                 (SELECT idPlayer, MAX(score) AS maxScore
@@ -64,6 +53,8 @@
         $conn = null;
 
         echo "<p>Database e Tabelas criadas com sucesso</p>";
+
+        //header("Location: login.php");
     }
     catch(PDOException $e){
         echo "Connection failed: " . $e->getMessage();
