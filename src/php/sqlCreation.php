@@ -5,6 +5,13 @@
     $dbPassword = "";
     $dbName = "rt";
 
+    session_start();
+
+    $_SESSION['dbServerName'] = $dbServerName;
+    $_SESSION['dbUsername'] = $dbUsername;
+    $_SESSION['dbPassword'] = $dbPassword;
+    $_SESSION['dbName'] = $dbName;
+
     try{
         $conn = new mysqli($dbServerName, $dbUsername, $dbPassword);
         $conn->query("DROP DATABASE $dbName");
@@ -40,10 +47,16 @@
             );';
 
         $sql[] = '
-            CREATE VIEW players_ranks AS SELECT * 
-            FROM player p INNER JOIN game_match gm 
-            ON p.id = gm.idPlayer
-            ORDER BY gm.score DESC;';
+            CREATE VIEW players_ranks AS
+            SELECT p.id, p.username, gm.score, gm.level, gm.duration, ROW_NUMBER() OVER (ORDER BY gm.score DESC) as ROW_NUMBER
+            FROM game_match gm
+            INNER JOIN
+                (SELECT idPlayer, MAX(score) AS maxScore
+                FROM game_match
+                GROUP BY idPlayer) groupedgm 
+            ON gm.idPlayer = groupedgm.idPlayer 
+            AND gm.score = groupedgm.maxScore
+            INNER JOIN player p ON p.id = gm.idPlayer';
         
         for ($i=0; $i < count($sql); $i++)
             $temp = $conn->exec($sql[$i]);

@@ -6,6 +6,6 @@
 
 4 - Coloque a pasta "Rolling-Tetris-Web" dentro da pasta "htdocs", presente no local em que instalou o XAMPP.
 
-5- Abra o navegador e digite o seguinte endereco sem as aspas "localhost/Rolling-Tetris-Web/src/php/sqlCreationg.php". Isso irá criar as tabelas, caso tudo ocorra certo uma mensagem será mostrada, apos ver a mensagem feche a página.
+5- Abra o navegador e digite o seguinte endereco sem as aspas "localhost/Rolling-Tetris-Web/src/php/sqlCreation.php". Isso irá criar as tabelas, caso tudo ocorra certo uma mensagem será mostrada, apos ver a mensagem feche a página.
 
 6 - Abra o navegador e digite o seguinte endereco sem as aspas "localhost/Rolling-Tetris-Web/src/php/login.php".

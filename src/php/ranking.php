@@ -23,85 +23,55 @@
                 <th>Nível</th>
                 <th>Duração da Partida</th>
             </tr>
-            <tr id="one-player">
-                <td>1º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="two-player">
-                <td>2º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="tree-player">
-                <td>3º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="four-player">
-                <td>4º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="five-player">
-                <td>5º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="six-player">
-                <td>6º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="seven-player">
-                <td>7º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="eight-player">
-                <td>8º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="nine-player">
-                <td>9º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>
-            <tr id="ten-player">
-                <td>10º</td>
-                <td>Jogador</td>
-                <td>0000</td>
-                <td>00</td>
-                <td>00:00</td>
-            </tr>            
-            <tfoot>
-                <tr id="player-best">
-                    <td>00º</td>
-                    <td>Username</td>
-                    <td>0000</td>
-                    <td>0</td>
-                    <td>00:00</td>
-                </tr>
-            </tfoot>
+
+            <?php
+                session_start();
+
+                try{                                
+                    $db = 'mysql:host=' . $_SESSION['dbServerName'] . ';dbname=' . $_SESSION['dbName'];
+                    $conn = new PDO($db, $_SESSION['dbUsername'], $_SESSION['dbPassword']);
+                    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+                    $query = $conn->query("SELECT * FROM players_ranks");
+                    
+                    $i = 0;
+                    while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                        td_row($row);
+                        if($i++ >= 10)
+                            break;
+                    }                       
+
+                    $id = 2; // TODO GET FROM LOGIN
+                    $query = $conn->query("SELECT * FROM players_ranks pk WHERE pk.id = $id");
+                    $currentRow = $query->fetch(PDO::FETCH_ASSOC);
+                    
+                    echo '<tfoot>';
+                        td_row($currentRow);
+                    echo '</tfoot>';
+
+                    $conn = null;
+                }
+                catch(PDOException $e){
+                    echo "Connection failed: " . $e->getMessage();
+                }
+
+                function add_tag($tag, $str){
+                    return "<$tag>" . $str . "</$tag>";
+                }
+
+                function td_row($row)
+                {
+                    echo '<tr>';
+                    echo add_tag('td', $row["ROW_NUMBER"] . 'º');
+                    echo add_tag('td', $row["username"]);
+                    echo add_tag('td', $row["score"] );
+                    echo add_tag('td', $row["level"]);
+                    echo add_tag('td', $row["duration"]);
+                    echo '</tr>';
+                }
+
+            ?>
+
         </table>
     </div>
 
