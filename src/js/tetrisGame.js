@@ -301,8 +301,20 @@ class SimpleTimer{
 	}
 	ToString(){
 		let minutes = Math.floor(this.time / 60000);
-		let seconds = ((this.time % 60000) / 1000).toFixed(0);
-		return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+		let seconds = ((this.time % 60000) / 1000);
+		return this.LeftZero(minutes) + ":" + this.LeftZero(seconds);
+	}
+	ToFullString(){		
+		var ms = this.time;
+		var seconds = ms / 1000;
+		var hours = parseInt( seconds / 3600 );
+		seconds = seconds % 3600; 
+		var minutes = parseInt( seconds / 60 ); 
+		seconds = seconds % 60;
+		return this.LeftZero(hours)+":"+this.LeftZero(minutes)+":"+this.LeftZero(seconds);
+	}
+	LeftZero(number){
+		return (number < 10 ? '0' : '') + number.toFixed(0);
 	}
 }
 
@@ -485,7 +497,7 @@ function GamePause(bool) {
 
 function Start(){
 	if (inGame) return;
-    console.clear();
+    //console.clear();
     if (!readyStart)
 	    Setup();
 	GamePause(false);
@@ -497,6 +509,8 @@ function Start(){
 }
 
 function Reset(){
+	if (!inGame)
+		return;
     EndGame();
     Setup();
 }
@@ -711,48 +725,35 @@ function AreaLog() {
 
 //#region ---------------- TABLE & DATABASE ----------------
 
-
-const usernameHtml = document.getElementById("user-name");
-
-const tableHtml = document.getElementById("player-table"); 
-
-GetDatabaseData();
-function GetDatabaseData(){
-    var login = localStorage.getItem("login");
-    var password = localStorage.getItem("password");
-
-    console.log(localStorage.getItem("login"));
-    console.log(localStorage.getItem("password"));
-    
-    //TODO - REQUEST DATA FROM PHP
-
-    var username = "Player";
-    usernameHtml.innerHTML = username;
-}
-
-function logOut(){
-    localStorage.removeItem("login");
-    localStorage.removeItem("password");
-}
+/** @type {HTMLTableElement} */
+const tableHtml = document.getElementById("player-table").querySelector("tbody"); 
 
 function SendTry(){   
     var tryScore = score.score;
     var tryLevel = score.level;
-    var tryTimer = timer.ToString();
-    
-    AddToTable(tryScore, tryLevel, tryTimer);
-    SendTryData(tryScore, tryLevel, tryTimer);
+    var tryDuration = timer.ToFullString();
+	
+	SendTryData(tryScore, tryLevel, tryDuration);
 }
 
-function SendTryData(){
-    //TODO - Send try data to php
+function SendTryData(tryScore, tryLevel, tryDuration){
+	var http = new XMLHttpRequest();
+	var params = `id=${session['id']}&score=${tryScore}&level=${tryLevel}&duration=${tryDuration}`;
+	http.open('POST', '../php/addMatch.php', true);
+	
+	http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+	
+	http.onreadystatechange = () => {
+		if(http.readyState == 4 && http.status == 200) {
+			AddToTable(tryScore, tryLevel, tryDuration);
+			//alert(http.response);
+		}
+	}
+	http.send(params);
 }
 
-function GetTrysData(){
-    //TODO - get trys from php
-}
+var firstRow = tableHtml.getElementsByTagName('tr')[1];
 
-var tableFirst;
 function AddToTable(playScore, playLevel, playDuration)
 {
     newTr = document.createElement("tr");
@@ -767,9 +768,9 @@ function AddToTable(playScore, playLevel, playDuration)
     newTr.appendChild(scoreTd);
     newTr.appendChild(levelTd);
     newTr.appendChild(durationTd);
-    
-    tableHtml.insertBefore(newTr, tableFirst);
-    tableFirst = newTr;
+	
+    tableHtml.insertBefore(newTr, firstRow);
+    firstRow = newTr;
 }
 
 //#endregion

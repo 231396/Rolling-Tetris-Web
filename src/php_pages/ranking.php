@@ -1,3 +1,14 @@
+<?php
+    // require "../php/is_logged_in.php";
+    // if (!$isLogged)
+    //     header("Location: login.php");
+
+    session_start();
+    $_SESSION['id'] = 1;
+    $_SESSION['username'] = "Andre";
+    $_SESSION['password'] = "111222";
+?>
+
 <!DOCTYPE html>
 <html lang="pt">
 
@@ -26,7 +37,6 @@
 
             <?php
                 require "../php/database.php";
-                require "../php/is_logged_in.php";
 
                 try{                                
                     $conn = $_Database->new_PDO();
@@ -41,14 +51,12 @@
                             break;
                     }                       
 
-                    if ($isLogged){                        
-                        $id = intval($_SESSION['id']);
-                        $query = $conn->query("SELECT * FROM players_ranks pk WHERE pk.id = $id");
-                        $currentRow = $query->fetch(PDO::FETCH_ASSOC);                    
-                        // print_r($currentRow);
-                        if (isset($currentRow['id'])){
-                            echo add_tag('tfoot', td_row($currentRow));
-                        }
+                    $id = intval($_SESSION['id']);
+                    $query = $conn->query("SELECT * FROM players_ranks pk WHERE pk.id = $id");
+                    $currentRow = $query->fetch(PDO::FETCH_ASSOC);                    
+                    // print_r($currentRow);
+                    if (isset($currentRow['id'])){
+                        echo add_tag('tfoot', td_row($currentRow));
                     }
 
                     $conn = null;
