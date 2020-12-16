@@ -1,14 +1,19 @@
 <?php
-    require "../php/is_logged_in.php";
-    if (!$isLogged)
-        header("Location: login.php");
+    // require "../php/is_logged_in.php";
+    // if (!$isLogged)
+    //     header("Location: login.php");
+
+    session_start();
+    $_SESSION['id'] = 1;
+    $_SESSION['username'] = "Andre";
+    $_SESSION['password'] = "111222";
 ?>
 
 <!DOCTYPE html>
 <html lang="pt">
 
 <head>
-    <title>game</title>
+    <title>Game RT</title>
 	<link rel="icon" type="image/ico" href="../../static/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel='stylesheet' type='text/css' media='screen' href='../css/style-game.css'>
@@ -16,7 +21,6 @@
 </head>
 
 <body>    
-
     <audio id="music" loop>
         <!-- Music from Tretis 99 -->
         <source src="../../static/Tretris99-GameTheme.mp3" type="audio/mpeg">
@@ -47,7 +51,7 @@
             <a class="link-btn" target="popup" onclick="window.open('../html/rules.html','popup','width=400,height=400,scrollbars=no'); return false;">Regras do Jogo</a>
             <a class="link-btn" href="ranking.php">Ranking Global</a>
             <a class="link-btn" href="account.php">Configurar Conta</a>
-            <a class="link-btn" href="login.php" onclick="LogOut()">Log Out</a>
+            <a class="link-btn" href="../php/logout.php">Log Out</a>
         </div>
 
         <div id="center-content">
@@ -104,24 +108,56 @@
         </div>
         
         <div id="right-content">
-            <h2 id="user-name" class="center-text"> NOME Username</h2>
+            <h2 id="user-name" class="center-text">
+                <?php echo $_SESSION['username']; ?>
+            </h2>
             <div class="table-wrapper">
                 <table id="player-table">
-                    <tr>
-                        <th>Pontuação</th>
-                        <th>Nível</th>
-                        <th>Duração</th>
-                    </tr>
-                    <?php
-                        //TODO - GET OLD TRYS
-                    ?>
-
+                    <tbody>                        
+                        <tr>
+                            <th>Pontuação</th>
+                            <th>Nível</th>
+                            <th>Duração</th>
+                        </tr>
+                        <?php
+                         require "../php/database.php";
+                         
+                         try{                                
+                             $conn = $_Database->new_PDO();
+                             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                             
+                             $query = $conn->query("SELECT * FROM game_match WHERE idPlayer = " . $_SESSION['id'] . " ORDER BY score DESC");
+                             
+                             while($row = $query->fetch(PDO::FETCH_ASSOC)) {
+                                 echo add_tag('tr',
+                                 add_tag('td', $row["score"]) .
+                                 add_tag('td', $row["level"]) .
+                                 add_tag('td', $row["duration"])
+                                );
+                            }                       
+                            
+                            $conn = null;
+                        }
+                        catch(PDOException $e){
+                            echo "Connection failed: " . $e->getMessage();
+                        }
+                        catch(Exception $e){
+                            echo "Error: " . $e->getMessage();
+                        }
+                        
+                        function add_tag($tag, $str){
+                            return "<$tag>" . $str . "</$tag>";
+                        }
+                        ?>
+                    </tbody>
                 </table>
             </div>
         </div>
 
     </div>
-
+    <script type="text/javascript">
+        var session = <?php echo json_encode($_SESSION); ?>;
+    </script>
     <script src="../js/tetrisGame.js"></script>
 </body>
 
