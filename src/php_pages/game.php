@@ -126,7 +126,7 @@
                              $conn = $_Database->new_PDO();
                              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                              
-                             $query = $conn->query("SELECT * FROM game_match WHERE idPlayer = " . $_SESSION['id']);
+                             $query = $conn->query("SELECT * FROM game_match WHERE idPlayer = " . $_SESSION['id'] . " ORDER BY score DESC");
                              
                              while($row = $query->fetch(PDO::FETCH_ASSOC)) {
                                  echo add_tag('tr',
