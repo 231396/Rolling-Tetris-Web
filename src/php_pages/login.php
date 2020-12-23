@@ -20,16 +20,12 @@ if (isset($_COOKIE['id'], $_COOKIE['username'], $_COOKIE['password'])) {
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
-
-    function sql_string($str)
-    {
-    return "'" . $str . "'";
-    }
-
 }
 
-
-
+function sql_string($str)
+{
+    return "'" . $str . "'";
+}
 ?>
 
 <!DOCTYPE html>
