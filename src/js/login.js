@@ -27,10 +27,12 @@ function canLogin(username, password) {
 	console.log(params);
 
 	ajax.open('POST', '../php/verify_login.php', true);
+	
 	ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
 	ajax.onreadystatechange = function () {
 		if (ajax.status === 200 && ajax.readyState === 4) {
+			console.log(ajax.responseText);
 			if (ajax.responseText == "false") {
 				alert('usuario errado');
 			}

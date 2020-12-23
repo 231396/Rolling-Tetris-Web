@@ -11,7 +11,7 @@ if (isset($_COOKIE['username'] ,$_COOKIE['password'])) {
         $conn = $_Database->new_PDO();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = $conn->query("SELECT username, password, id FROM player where
-        username =" . "'" . $_COOKIE['username'] . "'" . "and password = " . "'" . $_COOKIE['password'] . "'");
+        username = " . sql_string($_COOKIE['username']) . 'and password =  ' . sql_string($_COOKIE['password']));
         $credenciais = $query->fetch();
         if (isset($credenciais)) {
             $_SESSION['id'] = $credenciais['id'];

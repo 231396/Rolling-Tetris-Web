@@ -1,5 +1,6 @@
 <?php
-unset($_COOKIE);
+require "../php/database.php";
+
 $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
 
@@ -11,12 +12,19 @@ try {
   username = " . sql_string($_COOKIE['username']) . 'and password =  ' . sql_string($_COOKIE['password']));
 
   $credenciais = $query->fetch();
+  echo isset($credenciais);
+  if (isset($credenciais)) {
 
-  if ($credenciais['name'] == $name && $credenciais['password'] = $pass) {
+    setcookie("id", $credenciais['id']);
+    setcookie("username", $credenciais['username']);
+    setcookie("password", $credenciais['password']);
+
     $_SESSION['id'] = $credenciais['id'];
     $_SESSION['username'] = $credenciais['username'];
     $_SESSION['password'] = $credenciais['password'];
-    header("Location: game.php");
+
+    echo '======== passei akii ======================';
+    header("Location: ../php_pages/game.php");
   } else {
     echo false;
   }
@@ -30,4 +38,3 @@ function sql_string($str)
 {
   return "'" . $str . "'";
 }
-?>
