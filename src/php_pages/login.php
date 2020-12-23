@@ -6,7 +6,7 @@ require "../php/database.php";
 //unset($_COOKIE['nome']);
 //  echo $_GET['']
 session_start();
-if (isset($_COOKIE)) {
+if (isset($_COOKIE['username'] ,$_COOKIE['password'])) {
     try {
         $conn = $_Database->new_PDO();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -54,7 +54,7 @@ if (isset($_COOKIE)) {
         </h2>
 
         <form class="formulario" id="form_login" method="POST">
-
+            <span class="msg-erro msg-cad"></span>
             <label>Username</label>
             <input class="input-login" type="text" name="login" maxlength="16">
             <span class="msg-erro msg-login"></span>
