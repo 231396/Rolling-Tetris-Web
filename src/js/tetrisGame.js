@@ -739,7 +739,7 @@ function SendTry(){
 function SendTryData(tryScore, tryLevel, tryDuration){
 	var http = new XMLHttpRequest();
 	var params = `id=${session['id']}&score=${tryScore}&level=${tryLevel}&duration=${tryDuration}`;
-	http.open('POST', '../php/addMatch.php', true);
+	http.open('POST', '../php/add_match.php', true);
 	
 	http.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 	
