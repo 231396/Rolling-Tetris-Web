@@ -13,10 +13,10 @@ try {
 
   $credenciais = $query->fetch(PDO::FETCH_ASSOC);
 
-  if (isset($credenciais['id'])) {
-    setcookie("id", $credenciais['id']);
-    setcookie("username", $credenciais['username']);
-    setcookie("password", $credenciais['password']);
+  if (isset($credenciais['id'], $credenciais['username'],  $credenciais['password'])) {
+    setcookie("id", $credenciais['id'], time() + 3600, "/");
+    setcookie("username", $credenciais['username'], time() + 3600, "/");
+    setcookie("password", $credenciais['password'], time() + 3600, "/");
     $_SESSION['id'] = $credenciais['id'];
     $_SESSION['username'] = $credenciais['username'];
     $_SESSION['password'] = $credenciais['password'];
