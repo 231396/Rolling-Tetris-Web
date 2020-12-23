@@ -1,19 +1,19 @@
 <?php
 require "../php/database.php";
 
-$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
+$username = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_SPECIAL_CHARS);
 $pass = filter_input(INPUT_POST, 'pass', FILTER_SANITIZE_SPECIAL_CHARS);
 
+session_start();
 
 try {
   $conn = $_Database->new_PDO();
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $query = $conn->query("SELECT username, password, id FROM player where
-  username = " . sql_string($_COOKIE['username']) . 'and password =  ' . sql_string($_COOKIE['password']));
+  $query = $conn->query("SELECT username, password, id FROM player where username = " . sql_string($username) . 'and password =  ' . sql_string($pass));
 
-  $credenciais = $query->fetch();
-  echo isset($credenciais);
-  if (isset($credenciais)) {
+  $credenciais = $query->fetch(PDO::FETCH_ASSOC);
+
+  if (isset($credenciais['id'])) {
 
     setcookie("id", $credenciais['id']);
     setcookie("username", $credenciais['username']);
@@ -23,10 +23,9 @@ try {
     $_SESSION['username'] = $credenciais['username'];
     $_SESSION['password'] = $credenciais['password'];
 
-    echo '======== passei akii ======================';
     header("Location: ../php_pages/game.php");
   } else {
-    echo false;
+    echo "false";
   }
 } catch (PDOException $e) {
   echo "Connection failed: " . $e->getMessage();
@@ -38,3 +37,5 @@ function sql_string($str)
 {
   return "'" . $str . "'";
 }
+
+?>
