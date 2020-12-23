@@ -6,7 +6,8 @@ if (isset($_COOKIE['id'], $_COOKIE['username'], $_COOKIE['password'])) {
     try {
         $conn = $_Database->new_PDO();
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = $conn->query("SELECT username, password, id FROM player where username = " . sql_string($_COOKIE['username']) . "and password = " . sql_string($_COOKIE['password']);
+        $query = $conn->query("SELECT username, password, id FROM player where username = " . 
+                            sql_string($_COOKIE['username']) . "and password = " . sql_string($_COOKIE['password']));
         $credenciais = $query->fetch();
         if (isset($credenciais)) {
             $_SESSION['id'] = $credenciais['id'];
