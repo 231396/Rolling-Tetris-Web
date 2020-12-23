@@ -20,12 +20,9 @@ function submit(event) {
 }
 
 function canLogin(username, password) {
-
-
 	let ajax = new XMLHttpRequest();
-	let params = `name=${username}&pass=${password}`;
-	console.log(params);
-
+    let params = `name=${username}&pass=${password}`;
+    
 	ajax.open('POST', '../php/verify_login.php', true);
 	
 	ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -33,10 +30,12 @@ function canLogin(username, password) {
 	ajax.onreadystatechange = function () {
 		if (ajax.status === 200 && ajax.readyState === 4) {
 			console.log(ajax.responseText);
-			if (ajax.responseText == "false") {
-				alert('usuario errado');
-			}
-
+			if (ajax.responseText == "false")
+                alert('usuario errado');
+            else{
+                alert('usuario certo');
+                window.location.href = "../php_pages/game.php";
+            }
 		}
 	};
 
