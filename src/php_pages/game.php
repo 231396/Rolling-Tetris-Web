@@ -1,12 +1,5 @@
 <?php
-    // require "../php/is_logged_in.php";
-    // if (!$isLogged)
-    //     header("Location: login.php");
-
-    session_start();
-    $_SESSION['id'] = 1;
-    $_SESSION['username'] = "Andre";
-    $_SESSION['password'] = "111222";
+    require "../php/is_logged_in.php";
 ?>
 
 <!DOCTYPE html>
