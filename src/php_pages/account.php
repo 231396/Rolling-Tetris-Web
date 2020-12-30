@@ -1,7 +1,5 @@
 <?php
     require "../php/is_logged_in.php";
-    if (!$isLogged)
-        header("Location: login.php");
 ?>
 
 <!DOCTYPE html>
