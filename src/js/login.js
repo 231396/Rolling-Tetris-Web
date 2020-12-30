@@ -32,7 +32,7 @@ function canLogin(username, password) {
 		if (ajax.status === 200 && ajax.readyState === 4) {
 			if (ajax.responseText == "false"){
 
-				caixa_verify.innerHTML = "Login ou senha incorreto";
+				caixa_verify.innerHTML = "Username ou senha incorreto";
 				caixa_verify.style.display = "block";
 				caixa_verify.style.color = "red";
 				
