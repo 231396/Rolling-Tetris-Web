@@ -32,7 +32,7 @@
                 score INT not null,
                 level INT not null,
                 duration TIME not null,
-                FOREIGN KEY (idPlayer) REFERENCES Player(id)
+                FOREIGN KEY (idPlayer) REFERENCES player(id)
             );';
 
         $sql[] = '
