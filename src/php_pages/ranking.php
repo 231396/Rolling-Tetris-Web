@@ -29,7 +29,7 @@
             </tr>
 
             <?php
-                require "../php/database.php";
+                require_once "../php/database.php";
 
                 try{                                
                     $conn = $_Database->new_PDO();
