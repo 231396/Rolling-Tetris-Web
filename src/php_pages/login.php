@@ -20,12 +20,16 @@ if (isset($_COOKIE['id'], $_COOKIE['username'], $_COOKIE['password'])) {
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
+
+    function sql_string($str)
+    {
+    return "'" . $str . "'";
+    }
+
 }
 
-function sql_string($str)
-{
-    return "'" . $str . "'";
-}
+
+
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +56,7 @@ function sql_string($str)
         </h2>
 
         <form class="formulario" id="form_login" method="POST">
-
+            <span class="msg-erro-cadastro"></span>
             <label>Username</label>
             <input class="input-login" type="text" name="login" maxlength="16">
             <span class="msg-erro msg-login"></span>
