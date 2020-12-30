@@ -37,7 +37,6 @@ function canLogin(username, password) {
 				caixa_verify.style.color = "red";
 				
 		    }else{
-                alert('usuario certo');
                 window.location.href = "../php_pages/game.php";
             }
 		}
