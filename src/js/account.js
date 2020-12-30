@@ -1,5 +1,4 @@
 
-    
 const fullName = document.querySelector('#full_name');
 const birthDate = document.querySelector('#birth_date');
 const cpf = document.querySelector('#cpf');
@@ -12,6 +11,9 @@ getDatabaseData();
 function getDatabaseData(){
     var login = localStorage.getItem("login");
     var password = localStorage.getItem("password");
+
+    console.log(login);
+    console.log(password);
 
     let ajax = new XMLHttpRequest();
     let params = `name=${login}&pass=${password}`;

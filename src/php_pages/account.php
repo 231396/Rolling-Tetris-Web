@@ -1,5 +1,5 @@
 <?php
-    require "../php/is_logged_in.php";
+    //require "../php/is_logged_in.php";
 ?>
 
 <!DOCTYPE html>
