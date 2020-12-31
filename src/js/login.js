@@ -29,7 +29,7 @@ function canLogin(username, password) {
 
 	ajax.onreadystatechange = function () {
 		if (ajax.status === 200 && ajax.readyState === 4) {
-			console.log(ajax.responseText);
+			//console.log(ajax.responseText);
 			if (ajax.responseText == "false")
                 alert('usuario errado');
             else{

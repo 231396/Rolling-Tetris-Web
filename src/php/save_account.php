@@ -1,6 +1,8 @@
 <?php
 require "../php/database.php";
 
+$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_SPECIAL_CHARS);
+$id_parsed = intval($id);
 $fullName = filter_input(INPUT_POST, 'fullName', FILTER_SANITIZE_SPECIAL_CHARS);
 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_SPECIAL_CHARS);
 $phoneNumber = filter_input(INPUT_POST, 'phoneNumber', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -12,13 +14,15 @@ session_start();
 try {
   $conn = $_Database->new_PDO();
   $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $query = $conn->query("SELECT id FROM player where username = " . sql_string($username) . 'and password =  ' . sql_string($pass));
 
-  $id = $query->fetch(PDO::FETCH_ASSOC);
+  $sql_query = "UPDATE player SET nome=" . sql_string($fullName) . ",telefone=" . floatval($phoneNumber) . ",email=".sql_string($email).",password=".sql_string($pass)." where id = ${id_parsed}";
 
-  //$conn->query("UPDATE player SET nome = " . sql_string())
+  $query = $conn->query($sql_query);
 
-  return $account;
+  if ($query) {
+    $_SESSION['password'] = $pass;
+    echo "true";
+  }
 
 } catch (PDOException $e) {
   echo "Connection failed: " . $e->getMessage();

@@ -9,22 +9,19 @@ const password = document.querySelector('#password');
 
 getDatabaseData();
 function getDatabaseData(){
-    var login = localStorage.getItem("login");
-    var password = localStorage.getItem("password");
-
-    console.log(login);
-    console.log(password);
 
     let ajax = new XMLHttpRequest();
-    let params = `name=${login}&pass=${password}`;
+    let params = `id=${session_id}`;
     
 	ajax.open('POST', '../php/fill_account.php', true);
 	
-	ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
+    ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    
 	ajax.onreadystatechange = function () {
 		if (ajax.status === 200 && ajax.readyState === 4) {
-			console.log(ajax.responseText);
+            let acc = JSON.parse(ajax.responseText);
+
+            fillData(acc.nome, acc.dtNascimento, acc.cpf, acc.telefone, acc.email, acc.username, acc.password);
 		}
 	};
 
@@ -32,25 +29,26 @@ function getDatabaseData(){
 }
 
 function fillData(_fullName, _birthDate, _cpf, _phoneNumber, _email, _username, _password){
-    fullName.innerHTML = _fullName;
-    birthDate.innerHTML = _birthDate;
-    cpf.innerHTML = _cpf;
-    phoneNumber.innerHTML = _phoneNumber;
-    email.innerHTML = _email;
-    username.innerHTML = _username;
-    password.innerHTML = _password;
+    fullName.value = _fullName;
+    birthDate.value = _birthDate;
+    cpf.value = _cpf;
+    phoneNumber.value = _phoneNumber;
+    email.value = _email;
+    username.value = _username;
+    password.value = _password;
 }
 
 function saveChanges(){
-    var fullName_value = fullName.innerHTML;
-    var email_value = email.innerHTML;
-    var phoneNumber_value = phoneNumber.innerHTML;
-    var username_value = username.innerHTML;
-    var password_value = password.innerHTML;
+    let id = session_id;
+    let fullName_value = fullName.value;
+    let email_value = email.value;
+    let phoneNumber_value = phoneNumber.value;
+    let username_value = username.value;
+    let password_value = password.value;
 
     let ajax = new XMLHttpRequest();
-    let params = `fullName=${fullName_value}&email=${email_value}&phoneNumber=${phoneNumber_value}&username=${username_value}&password=${password_value}`;
-    
+    let params = `id=${session_id}&fullName=${fullName_value}&email=${email_value}&phoneNumber=${phoneNumber_value}&username=${username_value}&password=${password_value}`;
+
 	ajax.open('POST', '../php/save_account.php', true);
 	
 	ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');

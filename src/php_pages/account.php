@@ -1,5 +1,5 @@
 <?php
-    //require "../php/is_logged_in.php";
+    require "../php/is_logged_in.php";
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 <body>
     <div id="box-center">
         <h1> Editar Perfil </h1>
-        <form class="center-margin">
+        <form id="account_form" class="center-margin" method="post" onsubmit="return saveChanges()">
             <label for="full_name">Nome Completo</label>
             <input type="text" name="full_name" id="full_name">
             
@@ -45,6 +45,9 @@
         </form>
     </div>	
 
+    <script type="text/javascript">
+        var session_id = <?php echo $_SESSION['id']; ?>;
+    </script>
     <script src="../js/account.js"></script>
 </body>
 
