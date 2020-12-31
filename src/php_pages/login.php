@@ -1,31 +1,31 @@
 <?php
-require "../php/database.php";
+	require "../php/database.php";
 
-session_start();
-if (isset($_COOKIE['id'], $_COOKIE['username'], $_COOKIE['password'])) {
-    try {
-        $conn = $_Database->new_PDO();
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = $conn->query("SELECT username, password, id FROM player where username = " . 
-                            sql_string($_COOKIE['username']) . "and password = " . sql_string($_COOKIE['password']));
-        $credenciais = $query->fetch();
-        if (isset($credenciais)) {
-            $_SESSION['id'] = $credenciais['id'];
-            $_SESSION['username'] = $credenciais['username'];
-            $_SESSION['password'] = $credenciais['password'];
-            header("Location: game.php");
-        }
-    } catch (PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
-}
+	session_start();
+	if (isset($_COOKIE['id'], $_COOKIE['username'], $_COOKIE['password'])) {
+		try {
+			$conn = $_Database->new_PDO();
+			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$query = $conn->query("SELECT username, password, id FROM player where username = " . 
+								sql_string($_COOKIE['username']) . "and password = " . sql_string($_COOKIE['password']));
+			$credenciais = $query->fetch();
+			if (isset($credenciais)) {
+				$_SESSION['id'] = $credenciais['id'];
+				$_SESSION['username'] = $credenciais['username'];
+				$_SESSION['password'] = $credenciais['password'];
+				header("Location: game.php");
+			}
+		} catch (PDOException $e) {
+			echo "Connection failed: " . $e->getMessage();
+		} catch (Exception $e) {
+			echo "Error: " . $e->getMessage();
+		}
+	}
 
-function sql_string($str)
-{
-    return "'" . $str . "'";
-}
+	function sql_string($str)
+	{
+		return "'" . $str . "'";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +52,7 @@ function sql_string($str)
         </h2>
 
         <form class="formulario" id="form_login" method="POST">
-
+            <span class="msg-erro-cadastro"></span>
             <label>Username</label>
             <input class="input-login" type="text" name="login" maxlength="16">
             <span class="msg-erro msg-login"></span>

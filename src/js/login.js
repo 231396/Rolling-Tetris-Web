@@ -2,6 +2,7 @@ const caixa_login = document.querySelector('.msg-login');
 const caixa_passw = document.querySelector('.msg-passw');
 const input_login = document.querySelector('.input-login');
 const input_password = document.querySelector('.input-password');
+const caixa_verify = document.querySelector('.msg-erro-cadastro');
 
 /** @type {HTMLFormElement} */
 const form_login = document.querySelector('#form_login');
@@ -29,11 +30,13 @@ function canLogin(username, password) {
 
 	ajax.onreadystatechange = function () {
 		if (ajax.status === 200 && ajax.readyState === 4) {
-			//console.log(ajax.responseText);
-			if (ajax.responseText == "false")
-                alert('usuario errado');
-            else{
-                alert('usuario certo');
+			if (ajax.responseText == "false"){
+
+				caixa_verify.innerHTML = "Username ou senha incorreto";
+				caixa_verify.style.display = "block";
+				caixa_verify.style.color = "red";
+				
+		    }else{
                 window.location.href = "../php_pages/game.php";
             }
 		}
