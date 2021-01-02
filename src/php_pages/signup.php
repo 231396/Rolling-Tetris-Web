@@ -1,4 +1,9 @@
+<?php
+    require "../php/database.php";
+?>
+
 <!DOCTYPE html>
+
 <html lang="pt">
 
 <head>
@@ -10,12 +15,12 @@
 </head>
 
 <body>
-    <form class="formulario" id="signup_form" method="post" onsubmit="return validateForm()">
+    <form class="formulario" id="signup_form" method="POST" action="../php/signup.php" onsubmit="return validateForm()">
         <h2>Fomulário de Cadastro</h2>
         <label>Nome</label>
         <input type="text" name="name" placeholder="Seu Nome">
         <label>Data de Nascimento</label>
-        <input type="text" name="datebirth" placeholder="Sua Data de Nascimento">
+        <input type="date" name="datebirth" placeholder="Sua Data de Nascimento">
         <label>CPF</label>
         <input type="text" name="cpf" placeholder="Seu CPF">
         <label>Telefone</label>
