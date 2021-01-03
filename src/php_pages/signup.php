@@ -30,7 +30,7 @@
         <label>Username</label>
         <input type="text" name="username" placeholder="Seu Username">
         <label>Senha</label>
-        <input type="text" name="password" placeholder="Sua senha">
+        <input type="password" name="password" placeholder="Sua senha">
         <input type="submit" value="Cadastrar">
         <p><a href="login.php">Já estou cadastrado</a></p>
     </form>
