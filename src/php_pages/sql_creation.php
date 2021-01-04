@@ -21,7 +21,7 @@
                 cpf NUMERIC(11) not null,
                 telefone NUMERIC(11) not null,
                 email VARCHAR(30) not null,
-                username VARCHAR(16) not null,
+                username VARCHAR(16) not null UNIQUE,
                 password VARCHAR(16) not null
             );';
 
