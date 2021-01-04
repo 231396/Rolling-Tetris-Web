@@ -30,14 +30,13 @@ function canLogin(username, password) {
 
 	ajax.onreadystatechange = function () {
 		if (ajax.status === 200 && ajax.readyState === 4) {
-			if (ajax.responseText == "false"){
-
+			console.log(ajax.responseText)
+			if (ajax.responseText === "false"){
 				caixa_verify.innerHTML = "Username ou senha incorreto";
 				caixa_verify.style.display = "block";
-				caixa_verify.style.color = "red";
-				
+				caixa_verify.style.color = "red";				
 		    }else{
-                window.location.href = "../php_pages/game.php";
+                //window.location.href = "../php_pages/game.php";
             }
 		}
 	};

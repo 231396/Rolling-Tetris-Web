@@ -9,7 +9,7 @@
 	try {
 		$conn = $_Database->new_PDO();
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		$query = $conn->query("SELECT username, password, id FROM player where username = '$username' 'and password = '$pass'");
+		$query = $conn->query("SELECT username, password, id FROM player where username='$username' and password='$pass'");
 
 		$credenciais = $query->fetch(PDO::FETCH_ASSOC);
 
