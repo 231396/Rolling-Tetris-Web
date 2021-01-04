@@ -52,8 +52,15 @@ function verify() {
 
 	var isValidLogin = true;
 
-	if (username.length <= 6) {
-		caixa_login.innerHTML = "O campo username precisa de mais que 6 caracteres";
+	if (username.length < 6) {
+		caixa_login.innerHTML = "O campo username precisa ao menos de 6 caracteres";
+		caixa_login.style.display = "block";
+		caixa_login.style.borderColor = "red";
+		input_login.style.borderColor = "red";
+		isValidLogin = false;
+	}
+	else if (username.length > 16) {
+		caixa_login.innerHTML = "O campo username possui mais que 16 caracteres";
 		caixa_login.style.display = "block";
 		caixa_login.style.borderColor = "red";
 		input_login.style.borderColor = "red";
@@ -65,33 +72,23 @@ function verify() {
 		input_login.style.borderColor = "";
 	}
 
-	if (username.length > 16) {
-		caixa_login.innerHTML = "O campo username possui mais que 16 caracteres";
-		caixa_login.style.display = "block";
-		caixa_login.style.borderColor = "red";
-		input_login.style.borderColor = "red";
+	if (password.length < 6) {
+		caixa_passw.innerHTML = "O campo password precisa ao menos de 6 caracteres";
+		caixa_passw.style.display = "block";
+		caixa_passw.style.borderColor = "red";
+		input_password.style.borderColor = "red";
 		isValidLogin = false;
 	}
-
-	if (password.length <= 6) {
-		caixa_passw.innerHTML = "O campo password precisa de mais que 6 caracteres";
+	else if (password.length > 16) {
+		caixa_passw.innerHTML = "O campo password possui mais que 16 caracteres";
 		caixa_passw.style.display = "block";
 		caixa_passw.style.borderColor = "red";
 		input_password.style.borderColor = "red";
 		isValidLogin = false;
 	} else {
-
 		caixa_passw.innerHTML = "";
+		caixa_passw.style.borderColor = "";
 		input_password.style.borderColor = "";
-
-	}
-
-	if (password.length > 16) {
-		caixa_passw.innerHTML = "O campo password não pode esta vazio";
-		caixa_passw.style.display = "block";
-		caixa_passw.style.borderColor = "red";
-		input_password.style.borderColor = "red";
-		isValidLogin = false;
 	}
 
 	return isValidLogin;
