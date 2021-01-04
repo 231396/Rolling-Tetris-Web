@@ -1,0 +1,28 @@
+Aqui estão listados os arquivos em que cada membro é responsável.
+
+	Andre Sacilotto	231396
+tetrisGame.js
+add_match.php
+database.php
+is_logged_in.php
+logout.php
+game.php
+ranking.php
+sql_creation.php
+
+	Lucas Samuel Lopes	240147
+login.js
+verify_login.php
+login.php
+
+	Vitor Davi De Oliveira Marques	245517
+account.js
+fill_account.php
+save_account.php
+account.php
+
+	Gislaine Marques da Silva	173381
+signup.js
+signup_query.php
+signup_success.php
+signup.php

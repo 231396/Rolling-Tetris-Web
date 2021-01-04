@@ -36,7 +36,7 @@ function canLogin(username, password) {
 				caixa_verify.style.display = "block";
 				caixa_verify.style.color = "red";				
 		    }else{
-                //window.location.href = "../php_pages/game.php";
+                window.location.href = "../php_pages/game.php";
             }
 		}
 	};
