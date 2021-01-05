@@ -12,7 +12,7 @@
 			$query = $conn->query("SELECT username, password, id FROM player where username = " . 
 			sql_string($_SESSION['username']) . "and password = " . sql_string($_SESSION['password']));
 			$credenciais = $query->fetch(PDO::FETCH_ASSOC);
-			if (isset($credenciais)) {
+			if (isset($credenciais['id'])) {
 				$_SESSION['id'] = $credenciais['id'];
 				$_SESSION['username'] = $credenciais['username'];
 				$_SESSION['password'] = $credenciais['password'];

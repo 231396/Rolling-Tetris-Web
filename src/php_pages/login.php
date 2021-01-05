@@ -6,14 +6,19 @@
 		try {
 			$conn = $_Database->new_PDO();
 			$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$query = $conn->query("SELECT username, password, id FROM player where username = " . 
-								sql_string($_COOKIE['username']) . "and password = " . sql_string($_COOKIE['password']));
-			$credenciais = $query->fetch();
-			if (isset($credenciais)) {
+			$query = $conn->query("SELECT id, username, password FROM player where" . 
+				"id = " . sql_string($_COOKIE['id']) . 
+				"and username = " . sql_string($_COOKIE['username']) . 
+				"and password = " . sql_string($_COOKIE['password']));
+
+			$credenciais = $query->fetch(PDO::FETCH_ASSOC);
+			if (isset($credenciais['id'])) {
 				$_SESSION['id'] = $credenciais['id'];
 				$_SESSION['username'] = $credenciais['username'];
 				$_SESSION['password'] = $credenciais['password'];
 				header("Location: game.php");
+			} else{
+				header("Location: ../php/logout.php");
 			}
 		} catch (PDOException $e) {
 			echo "Connection failed: " . $e->getMessage();
